@@ -53,7 +53,7 @@ switch ($_SERVER['SERVER_NAME']) {
         break;
   
     default:
-        $active_group = 'test';
+        $active_group = 'office';
         break;
 }
 //echo $_SERVER['SERVER_NAME'];die();
@@ -89,6 +89,22 @@ $db['test']['dbcollat'] = 'utf8_general_ci';
 $db['test']['swap_pre'] = '';
 $db['test']['autoinit'] = TRUE;
 $db['test']['stricton'] = FALSE;
+
+$db['office']['hostname'] = 'localhost';
+$db['office']['username'] = 'SYSDBA';
+$db['office']['password'] = 'akuma2010';
+$db['office']['database'] = '/home/imartins/Área de Trabalho/database.gdb';
+$db['office']['dbdriver'] = 'firebird';
+$db['office']['dbprefix'] = '';
+$db['office']['pconnect'] = FALSE;
+$db['office']['db_debug'] = TRUE;
+$db['office']['cache_on'] = FALSE;
+$db['office']['cachedir'] = '';
+$db['office']['char_set'] = 'utf8';
+$db['office']['dbcollat'] = 'utf8_general_ci';
+$db['office']['swap_pre'] = '';
+$db['office']['autoinit'] = TRUE;
+$db['office']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

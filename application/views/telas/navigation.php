@@ -14,8 +14,9 @@
           <div class="navbar-collapse collapse" style="height: 1px;">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-              <li><a href="#" class="hvr-bounce-to-bottom">Features</a></li>
-              <li><a href="" class="hvr-bounce-to-bottom">Pricing</a></li>
+              <li><a href="{base_url}funcionario" class="hvr-bounce-to-bottom">Funcionário</a></li>
+              <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
+              <!--
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle hvr-bounce-to-bottom" data-toggle="dropdown">Products<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -41,6 +42,7 @@
                 <li><a href="#">Another action</a></li>
                 </ul>
               </li>
+              -->
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
