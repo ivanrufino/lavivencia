@@ -1,0 +1,80 @@
+.menu_green{
+    background-color: #48995C;
+    border-color: #82DF87;
+}
+.menu_green .navbar-nav > li > a {
+    color: #fff !important;
+    line-height: 35px;
+    font-size: 16px;
+    border-right: 1px solid transparent; 
+    border-left: 1px solid transparent; 
+}
+.menu_green .navbar-nav > li:not(.active) > a:hover {
+    color: #000 !important;
+    border-right-color: #fff;
+    border-left-color: #fff;
+    background: rgba(255, 255, 255, 0.21);
+}
+.menu_green .navbar-nav > li.active a,.menu_green .navbar-nav > li.active a:hover,.menu_green .navbar-nav > li a:focus{
+    background: #fff !important;
+    color: #48995C !important;
+}
+.corpo{
+    
+    border: 1px solid #82DF87;
+    min-height: calc(100vh - 200px);//100vh;
+    padding: 10px 20px;
+    background: rgb(255, 255, 239);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -webkit-box-shadow: inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
+    -moz-box-shadow:  inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
+    box-shadow:        inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
+}
+
+
+/*DESTE PONTO É TESTE*/
+
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin-top: 20px;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-wrapper .navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar-content
+{
+    width:320px;
+    padding: 15px;
+    padding-bottom:0px;
+}
+.navbar-content:before, .navbar-content:after
+{
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.navbar-nav.navbar-right:last-child {
+margin-right: 15px !important;
+}
+.navbar-footer 
+{
+    background-color:#DDD;
+}
+.navbar-footer-content { padding:15px 15px 15px 15px; }
+.dropdown-menu {
+padding: 0px;
+overflow: hidden;
+}

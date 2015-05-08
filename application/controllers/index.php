@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Index extends CI_Controller {
- public $css=null;
+    public $css=null;
     public $js=null;
     public $dadosUsuario;
     public function __construct() {

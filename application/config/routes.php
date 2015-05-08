@@ -45,6 +45,7 @@ $route['novo_funcionario'] = "funcionario/novoFuncionario";
 $route['cadastrar_funcionario'] = "funcionario/inserirFuncionario";
 $route['editar_funcionario/(:num)'] = "funcionario/editar/$1";
 $route['excluir_funcionario/(:num)'] = "funcionario/excluir/$1";
+$route['sair']='home/logout';
 $route['404_override'] = 'pagina404';
 
 
