@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['acessar'] = "home/logar";
-$route['funcionario'] = "index/funcionario";
+$route['funcionario'] = "funcionario/index";
 $route['novo_funcionario'] = "funcionario/novoFuncionario";
 $route['cadastrar_funcionario'] = "funcionario/inserirFuncionario";
 $route['editar_funcionario/(:num)'] = "funcionario/editar/$1";

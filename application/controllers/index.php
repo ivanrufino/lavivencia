@@ -9,7 +9,7 @@ class Index extends CI_Controller {
     public $dadosUsuario;
     public function __construct() {
         parent::__construct();
-         $this->css=array('bootstrap','hover','menu' );    
+         $this->css=array('bootstrap','hover','menuHorizontal' );    
         $this->js = array('jquery-1.10.2', 'bootstrap','jquery.dataTables.min');
         $this->load->model('usuario_model', 'usuario');
         $this->load->model('funcionario_model', 'funcionario');
@@ -20,7 +20,7 @@ class Index extends CI_Controller {
     }
     public function index() {
         $data['vazio'] = "vazio";
-        $tela = array('menu' => 'telas/menu.php',
+        $tela = array('menu' => 'telas/navigation.php',
             'index' => 'telas/index.php',
             );
         
@@ -28,14 +28,44 @@ class Index extends CI_Controller {
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
-    public function funcionario() {
-        $data['funcionarios'] = $this->funcionario->getFuncionario();
-        $tela = array('menu' => 'telas/menu.php',
-            'index' => 'telas/funcionario.php',
+    public function nopermission() {
+        $data['vazio'] = "vazio";
+        $tela = array('menu' => 'telas/navigation.php',
+            'index' => 'telas/nopermission.php',
             );
         
       $this->parser->adc_css($this->css);
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
+    public function modulos($codigo = NULL) {
+        $ret='result_array';
+        $this->db->select('*');
+        $this->db->from('SYSMODULO AS M');
+         $this->db->order_by('NOME asc' );
+       if(!is_null($codigo)){
+            $this->db->where('ID', $codigo );  
+            $ret='row_array';
+       }
+       
+        $sql=$this->db->get(); 
+        echo "<pre>";
+        print_r($sql->result_array());
+        echo "</pre>";
+//        if($sql->num_rows > 0){
+//            return $sql->$ret();
+//        }else{ 
+//            return FALSE;
+//        } 
+    }
+//    public function funcionario() {
+//        $data['funcionarios'] = $this->funcionario->getFuncionario();
+//        $tela = array('menu' => 'telas/navigation.php',
+//            'index' => 'telas/funcionario.php',
+//            );
+//        
+//      $this->parser->adc_css($this->css);
+//        $this->parser->adc_js($this->js);
+//        $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
+//    }
 }

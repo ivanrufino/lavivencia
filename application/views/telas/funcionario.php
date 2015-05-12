@@ -58,7 +58,7 @@
    
 </script>
 
-<div class="table-responsive col-sm-10">
+<div class="table-responsive col-sm-12 corpo">
     <a href='novo_funcionario' class="btn btn-success" style="float:right">Novo Funcionário</a>
     <table class="table table-bordered table-striped tables" id='table_funcionario'>
         <thead>
@@ -75,24 +75,25 @@
         <tbody>
             <?php foreach ($funcionarios as $funcionario) { ?>
                 <tr>
-                    <td nowrap><?= utf8_encode($funcionario['NOME']) ?></td>
+                    <td nowrap><?= ($funcionario['NOME']) ?></td>
                     <td><?= $funcionario['INSCRICAO'] ?></td>
                     <td><?= $funcionario['EMAIL'] ?></td>
                     <td><?= utf8_encode($funcionario['FUNCAO']) ?></td>
                     <?php
-                    if ($funcionario['TELEFONES'] != "") {
-                        $binfo = ibase_blob_info($funcionario['TELEFONES']);
-                        $bopen = ibase_blob_open($funcionario['TELEFONES']);
-                        $tel = utf8_encode(ibase_blob_get($bopen, $binfo[0]));
-                    } else {
-                        $tel = "";
-                    }
+//                    if ($funcionario['TELEFONES'] != "") {
+//                        $binfo = ibase_blob_info($funcionario['TELEFONES']);
+//                        $bopen = ibase_blob_open($funcionario['TELEFONES']);
+//                        $tel = utf8_encode(ibase_blob_get($bopen, $binfo[0]));
+//                    } else {
+//                        $tel = "";
+//                    }
                     ?>
-                    <!--<td><?= ibase_blob_get($bopen, $binfo[0]) ?></td>-->
+                    
                     <td><?= $funcionario['TURNO'] ?></td>
                     <td nowrap>
                         <a href="editar_funcionario/<?= $funcionario['ID'] ?>" class='btn btn-info' >Editar</a>
                         <a href="excluir_funcionario/<?= $funcionario['ID'] ?>" class='btn btn-danger excluir' >Excluir </a>
+                        <a href="funcionario/gerarRelatorio/<?= $funcionario['ID'] ?>" class='btn btn-default ' >Doc </a>
                     </td>
                 </tr>
             <?php }
@@ -100,11 +101,4 @@
         </tbody>
     </table>
 </div>
-<?php
-$dados['ID'] = '202024';
-$dados['FKFUNCAO'] = '1';
-$dados['NOME'] = 'ivanS rufíno ÁRTINS';
-$dados['IDENTIDADE'] = '12345678';
-$dados['TELEFONES'] = '1234567';
-//$this->db->insert('FUNCIONARIO',$dados);
-?>
+

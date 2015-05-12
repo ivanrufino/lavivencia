@@ -52,6 +52,7 @@ and open the template in the editor.
                                             </li>
                                         </ul>
                                     </li>
+                                  
                                 </ul>
                 <?php echo "<h2>". $this->session->flashdata('msg')."</h2>" ;              ?>
             </div>   

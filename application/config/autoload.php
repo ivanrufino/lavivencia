@@ -53,7 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array();
-$autoload['libraries'] = array('database','session','table','form_validation','upload','parser','email','verificador');
+$autoload['libraries'] = array('database','session','table','form_validation','upload','parser','email','verificador','sistema');
 
 
 
@@ -112,7 +112,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('Sistema_Model');
 
 
 

@@ -53,15 +53,14 @@ switch ($_SERVER['SERVER_NAME']) {
         break;
   
     default:
-        $active_group = 'office';
+        $active_group = 'default';
         break;
 }
-//echo $_SERVER['SERVER_NAME'];die();
- 
+
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'SYSDBA';
 $db['default']['password'] = 'akuma2010';
-$db['default']['database'] = '/home/ivan/Área de Trabalho/database.gdb';
+$db['default']['database'] = '/home/ivan/Área de Trabalho/database2.gdb';
 $db['default']['dbdriver'] = 'firebird';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;

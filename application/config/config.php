@@ -21,7 +21,7 @@ if (!defined('BASEPATH'))
 
 switch ($_SERVER['SERVER_NAME']) {
     case 'localhost':
-        $base = 'http://localhost/lavivencia/';
+        $base = 'http://localhost/lavivencia';
 
         break;
     

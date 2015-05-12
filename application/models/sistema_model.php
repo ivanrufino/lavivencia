@@ -3,23 +3,39 @@
 if (!defined('BASEPATH')) 
     exit('No direct script access allowed');
 
-class Funcionario_Model extends CI_Model {
+class Sistema_Model extends CI_Model {
     
-   public function getFuncionario($codigo=NULL) {
-       $ret='result_array';
-        $this->db->select('F.*,FN.NOME AS FUNCAO');
-        $this->db->from('FUNCIONARIO AS F');
-        $this->db->join('FUNCAO  FN', 'FN.ID = F.FKFUNCAO','left');
-         
-       if(!is_null($codigo)){
-            $this->db->where('F.ID', $codigo );  
-            $ret='row_array';
+   public function getModulo($usuario, $modulo,$funcao) {
+       /*select SM.ID, SM.NOME,SF.NOME,SF.VLO from SYSMODULO SM 
+JOIN SYSPERFIL SP
+    ON SP.ID = 1
+    
+JOIN SYSPERFIL_SYSFUNCAO SPSF
+    ON SPSF.FK_SYSPERFIL = SP.ID
+    AND SPSF.VHI = SM.VHI 
+
+JOIN SYSFUNCAO SF 
+    ON SF.VLO = SPSF.VLO
+    AND SF.FK_SYSMODULO = SM.ID
+
+ORDER BY SM.ID*/
+       $this->db->select('SM.ID, SM.NOME,SF.NOME,SF.VLO');
+       $this->db->from('SYSMODULO SM');
+       $this->db->join("SYSPERFIL SP", "SP.ID = $usuario");
+       $this->db->join('SYSPERFIL_SYSFUNCAO SPSF', 'SPSF.FK_SYSPERFIL = SP.ID');
+       $this->db->where('SPSF.VHI =SM.VHI' , NULL);
+       $this->db->join('SYSFUNCAO SF ', 'SF.VLO = SPSF.VLO');
+       $this->db->where('SF.FK_SYSMODULO =SM.ID' , NULL);    
+       if(!is_null($funcao)){
+           $this->db->where('SF.VLO' , $funcao);        
        }
+       $this->db->where('SM.ID' , $modulo);        
+       $this->db->order_by('SM.ID');
        
         $sql=$this->db->get(); 
-     
+       // echo $this->db->last_query();die();
         if($sql->num_rows > 0){
-            return $sql->$ret();
+            return $sql->result_array();
         }else{ 
             return FALSE;
         }
@@ -86,7 +102,6 @@ class Funcionario_Model extends CI_Model {
         return FALSE;
     }
     public function alteraFuncionario($dados,$id) {
-      
          $this->db->where('ID', $id);
         if( $this->db->update('FUNCIONARIO',$dados)){
             return TRUE;           

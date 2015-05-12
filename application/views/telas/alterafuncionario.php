@@ -15,12 +15,13 @@
             </div>
             <div class="stepwizard-step">
                 <a href="#step-4" type="button" class="btn btn-default btn-circle" >4</a>
-                <p>Dados Profissionais</p>
+                <p>Dados Profissionais </p>
             </div>
         </div>
     </div>
     <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-    <form role="form" action="cadastrar_funcionario" method="POST">
+    
+    <form role="form" action="{base_url}funcionario/alterar_funcionario/<?=$funcionario['ID']?>" method="POST">
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
@@ -29,43 +30,52 @@
                     <div class='col-md-2'>
                         <div class="form-group">
                             <label class="control-label">ID</label>
-                            <input  maxlength="100" type="text" name='ID' id='ID' required="required" class="form-control" placeholder="Digite o ID" value="<?php echo set_value('ID'); ?>" />
+                            <input  maxlength="100" type="text" name='ID' id='ID' disabled="" readonly="" class="form-control" placeholder="Digite o ID" value="<?php echo $funcionario['ID']; ?>" />
                         </div>
                     </div>
                     <div class='col-md-6'>
                         <div class="form-group">
                             <label class="control-label">NOME</label>
-                            <input maxlength="80" type="text"  name='NOME' id='NOME' class="form-control" required="required" placeholder="Digite o NOME" value="<?php echo set_value('NOME'); ?>"/>
+                            <input maxlength="80" type="text"  name='NOME' id='NOME' class="form-control" required="required" placeholder="Digite o NOME" value="<?php echo $funcionario['NOME']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">INSCRIÇÃO</label>
-                            <input maxlength="15" type="text" name='INSCRICAO' id='INSCRICAO' required="required" class="form-control" placeholder="Digite a INSCRIÇÃO" value="<?php echo set_value('INSCRICAO'); ?>"/>
+                            <input maxlength="15" type="text" name='INSCRICAO' id='INSCRICAO' required="required" disabled="" readonly="" class="form-control" placeholder="Digite a INSCRIÇÃO" value="<?php echo $funcionario['INSCRICAO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">EMAIL</label>
-                            <input maxlength="50" name='EMAIL' id='EMAL' type="text"  class="form-control" placeholder="Digite o EMAIL" value="<?php echo set_value('EMAIL'); ?>"/>
+                            <input maxlength="50" name='EMAIL' id='EMAL' type="text"  class="form-control" placeholder="Digite o EMAIL" value="<?php echo $funcionario['EMAIL']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
+                              <?php 
+                                if ($funcionario['TELEFONES'] != "") {
+                                    $binfo = ibase_blob_info($funcionario['TELEFONES']);
+                                    $bopen = ibase_blob_open($funcionario['TELEFONES']);
+                                    $tel = ibase_blob_get($bopen, $binfo[0]);
+                                } else {
+                                    $tel = "";
+                                  }
+                            ?> 
                             <label class="control-label">TELEFONE</label>
-                            <input  type="text"  name='TELEFONES' id='TELEFONES' class="form-control" placeholder="Digite o TELEFONE" value="<?php echo set_value('TELEFONES'); ?>"/>
+                            <input  type="text"  name='TELEFONES' id='TELEFONES' class="form-control" placeholder="Digite o TELEFONE" value="<?php echo $tel; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">DATA DE NASCIMENTO</label>
-                            <input maxlength="1000" type="DATE" name='DTNASCIMENTO' id='DTNASCIMENTO' class="form-control" placeholder="DD/MM/AA" value="<?php echo set_value('DTNASCIMENTO'); ?>"/>
+                            <input maxlength="1000" type="DATE" name='DTNASCIMENTO' id='DTNASCIMENTO' class="form-control" placeholder="DD/MM/AA" value="<?php echo $funcionario['DTNASCIMENTO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">NOME DA MÃE</label>
-                            <input   maxlength="50" type="text" name='NOME_MAE' id='NOME_MAE' class="form-control" placeholder="Digite o nome da MÃE" value="<?php echo set_value('NOME_MAE'); ?>"/>
+                            <input   maxlength="50" type="text" name='NOME_MAE' id='NOME_MAE' class="form-control" placeholder="Digite o nome da MÃE" value="<?php echo $funcionario['NOME_MAE']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
@@ -83,13 +93,13 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">FILHOS</label>
-                            <input  type="number"  min="0" name='NUM_FILHOS' id='NUM_FILHOS' class="form-control" placeholder="Número de FILHOS" value="<?php echo set_value('NUM_FILHOS'); ?>"/>
+                            <input  type="number"  min="0" name='NUM_FILHOS' id='NUM_FILHOS' class="form-control" placeholder="Número de FILHOS" value="<?php echo $funcionario['NUM_FILHOS']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">ESTADO CIVIL</label>
-                            <input  maxlength="20" type="text"  name='ESTADOCIVIL' id='ESTADOCIVIL' class="form-control" placeholder="Digite o ESTADO CIVIL" value="<?php echo set_value('ESTADOCIVIL'); ?>"/>
+                            <input  maxlength="20" type="text"  name='ESTADOCIVIL' id='ESTADOCIVIL' class="form-control" placeholder="Digite o ESTADO CIVIL" value="<?php echo $funcionario['ESTADOCIVIL']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
@@ -111,31 +121,31 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">IDENTIDADE</label>
-                            <input  maxlength="15" type="text"  name='IDENTIDADE' id='IDENTIDADE' class="form-control" placeholder="Digite o n. da IDENTIDADE" value="<?php echo set_value('IDENTIDADE'); ?>"/>
+                            <input  maxlength="15" type="text"  name='IDENTIDADE' id='IDENTIDADE' class="form-control" placeholder="Digite o n. da IDENTIDADE" value="<?php echo $funcionario['IDENTIDADE']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">ORGÃO</label>
-                            <input  maxlength="10" type="text"  name='ORGAO' id='ORGAO' class="form-control" placeholder="Digite o ORGÃO EMISSOR" value="<?php echo set_value('ORGAO'); ?>"/>
+                            <input  maxlength="10" type="text"  name='ORGAO' id='ORGAO' class="form-control" placeholder="Digite o ORGÃO EMISSOR" value="<?php echo $funcionario['ORGAO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">CARTEIRA DE TRABALHO</label>
-                            <input  maxlength="15" type="text" name='NUMCARTEIRA' id='NUMCARTEIRA' class="form-control" placeholder="Digite o n. da CARTEIRA DE TRBALHO" value="<?php echo set_value('NUMCARTEIRA'); ?>"/>
+                            <input  maxlength="15" type="text" name='NUMCARTEIRA' id='NUMCARTEIRA' class="form-control" placeholder="Digite o n. da CARTEIRA DE TRBALHO" value="<?php echo $funcionario['NUMCARTEIRA']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">PIS</label>
-                            <input  maxlength="15" type="text"   name='NUMPIS' id='NUMPIS' class="form-control" placeholder="Digite o n. do PIS" value="<?php echo set_value('NUMPIS'); ?>"/>
+                            <input  maxlength="15" type="text"   name='NUMPIS' id='NUMPIS' class="form-control" placeholder="Digite o n. do PIS" value="<?php echo $funcionario['NUMPIS']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">CNH</label>
-                            <input  maxlength="15" type="text"   name='NUMCNH' id='NUMCNH' class="form-control" placeholder="Digite o n. da CNH" value="<?php echo set_value('NUMCNH'); ?>"/>
+                            <input  maxlength="15" type="text"   name='NUMCNH' id='NUMCNH' class="form-control" placeholder="Digite o n. da CNH" value="<?php echo $funcionario['NUMCNH']; ?>"/>
                         </div>
                     </div>
 
@@ -152,19 +162,19 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">ENDEREÇO</label>
-                            <input  maxlength="50" type="text"  name='ENDERECO' id='ENDERECO    ' class="form-control" placeholder="Digite o ENDEREÇO" value="<?php echo set_value('ENDERECO'); ?>"/>
+                            <input  maxlength="50" type="text"  name='ENDERECO' id='ENDERECO    ' class="form-control" placeholder="Digite o ENDEREÇO" value="<?php echo $funcionario['ENDERECO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">SUBBAIRRO</label>
-                            <input  maxlength="80" type="text"  name='SUBBAIRRO' id='SUBBAIRRO' class="form-control" placeholder="Digite o SUBBAIRRO" value="<?php echo set_value('SUBBAIRRO'); ?>"/>
+                            <input  maxlength="80" type="text"  name='SUBBAIRRO' id='SUBBAIRRO' class="form-control" placeholder="Digite o SUBBAIRRO" value="<?php echo $funcionario['SUBBAIRRO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">BAIRRO</label>
-                            <input  maxlength="80" type="text"  name='BAIRRO' id='BAIRRO' class="form-control" placeholder="Digite o BAIRRO" value="<?php echo set_value('BAIRRO'); ?>"/>
+                            <input  maxlength="80" type="text"  name='BAIRRO' id='BAIRRO' class="form-control" placeholder="Digite o BAIRRO" value="<?php echo $funcionario['BAIRRO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
@@ -182,13 +192,13 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">CEP</label>
-                            <input  maxlength="10" type="text"  name='CEP' id='CEP' class="form-control" placeholder="Digite o CEP" value="<?php echo set_value('CEP'); ?>"/>
+                            <input  maxlength="10" type="text"  name='CEP' id='CEP' class="form-control" placeholder="Digite o CEP" value="<?php echo $funcionario['CEP']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">UF</label>
-                            <input  maxlength="2" type="text"  name='UF' id='UF'  class="form-control" placeholder="Digite o UF" value="<?php echo set_value('UF'); ?>"/>
+                            <input  maxlength="2" type="text"  name='UF' id='UF'  class="form-control" placeholder="Digite o UF" value="<?php echo $funcionario['UF']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
@@ -239,13 +249,13 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">REFERENCIAS</label>
-                            <input  maxlength="50" type="text"   class="form-control" name='REFERENCIAS' id='REFERENCIAS' placeholder="Digite as REFERENCIAS" value="<?php echo set_value('REFERENCIAS'); ?>"/>
+                            <input  maxlength="50" type="text"   class="form-control" name='REFERENCIAS' id='REFERENCIAS' placeholder="Digite as REFERENCIAS" value="<?php echo $funcionario['REFERENCIAS']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">DATA DE ADMISSÃO</label>
-                            <input  maxlength="15" type="date"   name='DTADMISSAO' id='DTADMISSAO' class="form-control"  value="<?php echo set_value('DTADMISSAO'); ?>"/>
+                            <input  maxlength="15" type="date"   name='DTADMISSAO' id='DTADMISSAO' class="form-control"  value="<?php echo $funcionario['DTADMISSAO']; ?>"/>
                         </div>
                     </div>
                     <!--                    
@@ -264,25 +274,35 @@
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">SALARIO</label>
-                            <input   type="text"   class="form-control" name='SALARIO' id='SALARIO' placeholder="Digite o SALARIO" value="<?php echo set_value('SALARIO'); ?>"/>
+                            <input   type="text"   class="form-control" name='SALARIO' id='SALARIO' placeholder="Digite o SALARIO" value="<?php echo $funcionario['SALARIO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-8'>
                         <div class="form-group">
                             <label class="control-label">OBSERVACAO</label>
-                            <textarea class='form-control' name='OBSERVACAO' id='OBSERVACAO' placeholder="Digite a OBSERVACAO"><?php echo set_value('OBSERVACAO'); ?> </textarea>
+                            <textarea class='form-control' name='OBSERVACAO' id='OBSERVACAO' placeholder="Digite a OBSERVACAO">
+                                <?php 
+                                if ($funcionario['OBSERVACAO'] != "") {
+                                    $binfo = ibase_blob_info($funcionario['OBSERVACAO']);
+                                    $bopen = ibase_blob_open($funcionario['OBSERVACAO']);
+                                    $obs = utf8_encode(ibase_blob_get($bopen, $binfo[0]));
+                                } else {
+                                    $obs = "";
+                                  }
+                            echo trim($obs); ?> 
+                            </textarea>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">TURNO</label>
-                            <input  maxlength="30" type="text"   class="form-control" name='TURNO' id='TURNO' placeholder="Digite o TURNO" value="<?php echo set_value('TURNO'); ?>"/>
+                            <input  maxlength="30" type="text"   class="form-control" name='TURNO' id='TURNO' placeholder="Digite o TURNO" value="<?php echo $funcionario['TURNO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
                             <label class="control-label">INDICADO</label>
-                            <input  maxlength="80" type="text"   class="form-control" name='INDICADO' id='INDICADO' placeholder="Digite o INDICADO" value="<?php echo set_value('INDICADO'); ?>"/>
+                            <input  maxlength="80" type="text"   class="form-control" name='INDICADO' id='INDICADO' placeholder="Digite o INDICADO" value="<?php echo $funcionario['INDICADO']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
