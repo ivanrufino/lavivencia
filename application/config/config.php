@@ -22,9 +22,13 @@ if (!defined('BASEPATH'))
 switch ($_SERVER['SERVER_NAME']) {
     case 'localhost':
         $base = 'http://localhost/lavivencia';
-
         break;
-    
+    case '192.168.1.117':
+        $base = 'http://192.168.1.117/lavivencia';
+        break;
+    default:
+        $base="";
+        break;
 }
  
 //$config['base_url']	= 'http://tcc.bl.ee/'; 

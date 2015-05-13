@@ -24,12 +24,12 @@
     border: 1px solid #82DF87;
     min-height: calc(100vh - 200px);//100vh;
     padding: 10px 20px 50px;
-    background: rgb(255, 255, 239);
-    border-bottom-left-radius: 10px;
+   // background: rgb(255, 255, 239);
+/*    border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     -webkit-box-shadow: inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
     -moz-box-shadow:  inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
-    box-shadow:        inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);
+    box-shadow:        inset 7px 7px 5px 0px rgba(50, 50, 50, 0.15);*/
 }
 
 

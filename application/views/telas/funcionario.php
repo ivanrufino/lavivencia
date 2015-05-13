@@ -66,7 +66,7 @@
                 <th >NOME</th>
                 <th>INSCRIÇÃO</th>
                 <th>EMAIL</th>
-                <th>FUNCAO</th>
+                <th>FUNÇÃO</th>
                 <!--<th>TELEFONES</th>-->
                 <th>TURNO</th>
                 <th>AÇÃO</th>

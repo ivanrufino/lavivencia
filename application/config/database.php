@@ -53,7 +53,7 @@ switch ($_SERVER['SERVER_NAME']) {
         break;
   
     default:
-        $active_group = 'default';
+        $active_group = 'office';
         break;
 }
 
@@ -99,8 +99,8 @@ $db['office']['pconnect'] = FALSE;
 $db['office']['db_debug'] = TRUE;
 $db['office']['cache_on'] = FALSE;
 $db['office']['cachedir'] = '';
-$db['office']['char_set'] = 'utf8';
-$db['office']['dbcollat'] = 'utf8_general_ci';
+$db['office']['char_set'] = 'NONE';
+$db['office']['dbcollat'] = 'NONE';
 $db['office']['swap_pre'] = '';
 $db['office']['autoinit'] = TRUE;
 $db['office']['stricton'] = FALSE;
