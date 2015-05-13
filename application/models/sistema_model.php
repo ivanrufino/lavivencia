@@ -5,21 +5,9 @@ if (!defined('BASEPATH'))
 
 class Sistema_Model extends CI_Model {
     
-   public function getModulo($usuario, $modulo,$funcao) {
-       /*select SM.ID, SM.NOME,SF.NOME,SF.VLO from SYSMODULO SM 
-JOIN SYSPERFIL SP
-    ON SP.ID = 1
-    
-JOIN SYSPERFIL_SYSFUNCAO SPSF
-    ON SPSF.FK_SYSPERFIL = SP.ID
-    AND SPSF.VHI = SM.VHI 
+   public function getModulo($perfil, $modulo,$funcao) {
 
-JOIN SYSFUNCAO SF 
-    ON SF.VLO = SPSF.VLO
-    AND SF.FK_SYSMODULO = SM.ID
-
-ORDER BY SM.ID*/
-       $this->db->select('SM.ID, SM.NOME,SF.NOME,SF.VLO');
+  /*     $this->db->select('SM.ID, SM.NOME,SF.NOME,SF.VLO');
        $this->db->from('SYSMODULO SM');
        $this->db->join("SYSPERFIL SP", "SP.ID = $usuario");
        $this->db->join('SYSPERFIL_SYSFUNCAO SPSF', 'SPSF.FK_SYSPERFIL = SP.ID');
@@ -30,8 +18,16 @@ ORDER BY SM.ID*/
            $this->db->where('SF.VLO' , $funcao);        
        }
        $this->db->where('SM.ID' , $modulo);        
-       $this->db->order_by('SM.ID');
+       $this->db->order_by('SM.ID');*/
        
+        $this->db->select();
+        $this->db->from('v_acesso v');
+        $this->db->where('v.ID_PERFIL',$perfil);
+        $this->db->where('v.ID_MODULO',$modulo);
+        if(!is_null($funcao)){
+            $this->db->where('v.ID_FUNCAO',$funcao);
+        }
+        
         $sql=$this->db->get(); 
        // echo $this->db->last_query();die();
         if($sql->num_rows > 0){

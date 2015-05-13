@@ -53,7 +53,7 @@ switch ($_SERVER['SERVER_NAME']) {
         break;
   
     default:
-        $active_group = 'office';
+        $active_group = 'test';
         break;
 }
 
@@ -73,10 +73,11 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+
 $db['test']['hostname'] = 'localhost';
 $db['test']['username'] = 'root';
 $db['test']['password'] = '12345';
-$db['test']['database'] = 'tcc';
+$db['test']['database'] = 'db_lavivencia';
 $db['test']['dbdriver'] = 'mysql';
 $db['test']['dbprefix'] = '';
 $db['test']['pconnect'] = FALSE;
@@ -88,6 +89,7 @@ $db['test']['dbcollat'] = 'utf8_general_ci';
 $db['test']['swap_pre'] = '';
 $db['test']['autoinit'] = TRUE;
 $db['test']['stricton'] = FALSE;
+
 
 $db['office']['hostname'] = 'localhost';
 $db['office']['username'] = 'SYSDBA';

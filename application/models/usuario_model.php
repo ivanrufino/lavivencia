@@ -7,9 +7,9 @@ class Usuario_Model extends CI_Model {
     
     public function logar($usuario,$senha){ 
         $this->db->select('*');
-        $this->db->from('SYSUSUARIO AS usu');
-        $this->db->where('LOGON',$usuario);  
-       $this->db->where('SENHA', $senha);  
+        $this->db->from('v_login AS usu');
+        $this->db->where('LOGIN',$usuario);  
+       $this->db->where('SENHA', sha1($senha));  
        
         $sql=$this->db->get(); 
         //echo $this->db->last_query();die();

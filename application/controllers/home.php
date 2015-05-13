@@ -37,7 +37,7 @@ class Home extends CI_Controller {
         } else {
             $dadosUsuario = $this->usuario->logar($usuario,$senha);
             if($dadosUsuario){
-                if($dadosUsuario['ATIVO']!='S'){
+                if($dadosUsuario['STATUS']!='1'){
                     $this->login(2); 
                 }else{
                     unset($dadosUsuario['SENHA']);

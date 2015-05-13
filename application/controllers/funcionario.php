@@ -2,12 +2,17 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+define('INCLUIR', '1');
+define('ALTERAR', '2');
+define('EXCLUIR', '3');
+define('RELATORIO', '4');
 
 class Funcionario extends CI_Controller {
  public $css=null;
     public $js=null;
     public $dadosUsuario;
-    private $VLO = 364;
+    private $idModulo = 1;
+    
     public function __construct() {
         parent::__construct();
          $this->css=array('bootstrap','hover','menuHorizontal' );    
@@ -23,12 +28,13 @@ class Funcionario extends CI_Controller {
         if(!isset( $this->dadosUsuario['logado'])){
             redirect();
         }
-         $this->sistema->permissao($this->dadosUsuario['FK_SYSPERFIL'],$this->VLO);
-        // print_r($this->sistema->getModulo($this->dadosUsuario['FK_SYSPERFIL'],$this->VLO));
+      //  die(print_r($this->dadosUsuario));
+         $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo);
+        
                 
     }
     public function index() {
-        $data['funcionarios'] = $this->utf8_converter($this->funcionario->getFuncionario());
+        $data['funcionarios'] = $this->funcionario->getFuncionario();//$this->utf8_converter($this->funcionario->getFuncionario());
         $tela = array('menu' => 'telas/navigation.php',
             'index' => 'telas/funcionario.php',
             );
@@ -38,7 +44,7 @@ class Funcionario extends CI_Controller {
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
     public function novoFuncionario() {
-       $this->sistema->permissao($this->dadosUsuario['FK_SYSPERFIL'],$this->VLO,1);
+       $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,INCLUIR);
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
        $data['naturalidades'] =  $data['municipios'];
@@ -100,7 +106,7 @@ class Funcionario extends CI_Controller {
         }
     }
     public function editar($id) {
-        $this->sistema->permissao($this->dadosUsuario['FK_SYSPERFIL'],$this->VLO,2);
+        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,ALTERAR);
        $data['funcionario'] = $this->utf8_converter($this->funcionario->getFuncionario($id));//die(var_dump($data));
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
@@ -117,13 +123,14 @@ class Funcionario extends CI_Controller {
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
     public function excluir($id) {
-        $this->sistema->permissao($this->dadosUsuario['FK_SYSPERFIL'],$this->VLO,3);
+        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,EXCLUIR);
         if($this->funcionario->excluirFuncionario($id)){
            $this->session->set_flashdata('msg', 'Funcionário excluido com sucesso.');
         }
         redirect('funcionario');
     }
     public function gerarRelatorio($id, $tipo = 'doc') {
+        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,RELATORIO);
         $this->load->helper('file');
         $this->load->helper('download');
         $funcionario = $this->funcionario->getFuncionario($id);

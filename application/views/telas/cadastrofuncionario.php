@@ -74,7 +74,7 @@
                             <select class="form-control" name='FKESCOLARIDADE' id=''>
                                 <option value="">Selecione a ESCOLARIDADE</option>
                                 <?php foreach ($escolaridades as $escolaridade) { ?>
-                                    <option value='<?= $escolaridade['ID'] ?>'> <?= utf8_encode($escolaridade['NOME']) ?> </option>
+                                    <option value='<?= $escolaridade['ID'] ?>'> <?= $escolaridade['NOME']?> </option>
                                 <?php } ?>
                             </select>
                             <!--<input  type="text"  class="form-control" placeholder="Selecione a ESCOLARIDADE" />-->
@@ -173,7 +173,7 @@
                             <select class="form-control" name='FKMUNICIPIO' id='MUNICIPIO'>
                                 <option value="">Selecione o MUNICIPIO</option>
                                 <?php foreach ($municipios as $municipio) { ?>
-                                    <option value='<?= $municipio['ID'] ?>'> <?= utf8_encode($municipio['NOME']) ?> </option>
+                                    <option value='<?= $municipio['ID'] ?>'> <?= $municipio['NOME']?> </option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -197,7 +197,7 @@
                             <select class="form-control" name='FKNATURALIDADE' id='NATURALIDADE'>
                                 <option value="">Selecione a NATURALIDADE</option>
                                 <?php foreach ($naturalidades as $naturalidade) { ?>
-                                    <option value='<?= $naturalidade['ID'] ?>'> <?= utf8_encode($naturalidade['NOME']) ?> </option>
+                                    <option value='<?= $naturalidade['ID'] ?>'> <?= $naturalidade['NOME']?> </option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -208,7 +208,7 @@
                                                  <select class="form-control">
                                                      <option value="">Selecione o PAIS</option>
                     <?php foreach ($paises as $pais) { ?>
-                                                        <option value='<?= $naturalidade['ID'] ?>'> <?= utf8_encode($naturalidade['NOME']) ?> </option>
+                                                        <option value='<?= $naturalidade['ID'] ?>'> <?= $naturalidade['NOME']?> </option>
                     <?php } ?>
                                                 </select>
                                             </div>
@@ -231,7 +231,7 @@
                             <select class="form-control" name='FKFUNCAO' id='FUNCAO' >
                                 <!--<option value="">Selecione a FUNCÃO</option>-->
                                 <?php foreach ($funcoes as $funcao) { ?>
-                                    <option value='<?= $funcao['ID'] ?>'> <?= utf8_encode($funcao['NOME']) ?> </option>
+                                    <option value='<?= $funcao['ID'] ?>'> <?= $funcao['NOME']?> </option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -255,7 +255,7 @@
                                                  <select class="form-control">
                                                      <option value="">Selecione a INDICAÇÃO</option>
                     <?php foreach ($indicacoes as $indicacao) { ?>
-                                                        <option value='<?= $indicacao['ID'] ?>'> <?= utf8_encode($indicacao['NOME']) ?> </option>
+                                                        <option value='<?= $indicacao['ID'] ?>'> <?= $indicacao['NOME']?> </option>
                     <?php } ?>
                                                 </select>
                                             </div>
