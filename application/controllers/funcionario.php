@@ -21,20 +21,14 @@ class Funcionario extends CI_Controller {
         $this->load->model('funcionario_model', 'funcionario');
         //$this->load->model('Sistema_Model', 'sistema');
         $this->dadosUsuario= $this->session->userdata('dadosUsuario');
-       
-
-       
-
         if(!isset( $this->dadosUsuario['logado'])){
             redirect();
         }
-      //  die(print_r($this->dadosUsuario));
-         $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo);
-        
+        $modulos =$this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo);       
                 
     }
     public function index() {
-        $data['funcionarios'] = $this->funcionario->getFuncionario();//$this->utf8_converter($this->funcionario->getFuncionario());
+        $data['funcionarios'] = $this->funcionario->getFuncionario();
         $tela = array('menu' => 'telas/navigation.php',
             'index' => 'telas/funcionario.php',
             );
@@ -58,6 +52,7 @@ class Funcionario extends CI_Controller {
         $this->parser->adc_css($this->css);
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
+        
     }
     public function inserirFuncionario() {
        // $this->form_validation->set_message('is_unique', 'O campo ID não pode ser duplicado na base.');

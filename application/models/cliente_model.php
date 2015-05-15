@@ -3,37 +3,23 @@
 if (!defined('BASEPATH')) 
     exit('No direct script access allowed');
 
-class Sistema_Model extends CI_Model {
+class Cliente_Model extends CI_Model {
     
-   public function getModulo($perfil, $modulo,$funcao) {
+   public function getCliente($codigo=NULL) {
+       $ret='result_array';
+        $this->db->select('*');
+        $this->db->from('CLIENTE C');
+        
+         
+       if(!is_null($codigo)){
+            $this->db->where('C.ID', $codigo );  
+            $ret='row_array';
+       }
        
-        $this->db->select();
-        $this->db->from('v_acesso v');
-        $this->db->where('v.ID_PERFIL',$perfil);
-        $this->db->where('v.ID_MODULO',$modulo);    
-        
-        
-        if(!is_null($funcao)){
-            $this->db->where('v.ID_FUNCAO',$funcao);
-        }
-        
         $sql=$this->db->get(); 
-       // echo $this->db->last_query();die();
+     
         if($sql->num_rows > 0){
-            return $sql->result_array();
-        }else{ 
-            return FALSE;
-        }
-    }
-    public function getModuloMenu($perfil) {
-         $this->db->select();
-        $this->db->from('v_moduloMenu v');
-        $this->db->where('v.ID_PERFIL',$perfil);
-        
-        $sql=$this->db->get(); 
-       // echo $this->db->last_query();die();
-        if($sql->num_rows > 0){
-            return $sql->result_array();
+            return $sql->$ret();
         }else{ 
             return FALSE;
         }
@@ -100,6 +86,7 @@ class Sistema_Model extends CI_Model {
         return FALSE;
     }
     public function alteraFuncionario($dados,$id) {
+      
          $this->db->where('ID', $id);
         if( $this->db->update('FUNCIONARIO',$dados)){
             return TRUE;           

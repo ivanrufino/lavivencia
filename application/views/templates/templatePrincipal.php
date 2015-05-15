@@ -10,6 +10,14 @@ and open the template in the editor.
         <title>La Vivencia</title>
         {css_list}
         {js_list}
+        <script>
+            $(document).ready(function(){
+                var localAtual = '.view_' +'<?= $this->router->fetch_class(); ?>';
+                $('li[class^=view_]').removeClass('active');
+                $(localAtual).addClass('active');
+                console.log(localAtual)
+            })
+        </script>
     </head>
     <body>
         <div class="container">

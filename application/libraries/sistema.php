@@ -13,8 +13,10 @@ class sistema {
         if(!$ret){
             redirect('index/nopermission');
         }
-      // return "sadasda"       ;
+      
     }
+    
+    
     public function quantidadesLivros($codUsuario) {
         $meusLivros = $this->CI->ev->getLivros($codUsuario);
         $data['numQuantNaoLi']=   '0' ;

@@ -15,7 +15,9 @@
             
           <div class="navbar-collapse collapse" style="height: 1px;">
             <ul class="nav navbar-nav">
-              <li class="<?=$class=='index'? 'active':''; ?>"><a href="{base_url}index" class="hvr-bounce-to-bottom"><span class="glyphicon glyphicon-home "></span> Home</a></li>
+                {menu_list}
+                
+<!--              <li class="<?=$class=='index'? 'active':''; ?>"><a href="{base_url}index" class="hvr-bounce-to-bottom"><span class="glyphicon glyphicon-home "></span> Home</a></li>
               <li class="<?=$class=='funcionario'? 'active':''; ?>"><a  href="{base_url}funcionario" class="hvr-bounce-to-bottom">Funcionário</a></li>
               <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
               <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
@@ -36,7 +38,7 @@
               <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
               <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
               <li><a href="" class="hvr-bounce-to-bottom">Outros</a></li>
-              
+              -->
               <!--
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle hvr-bounce-to-bottom" data-toggle="dropdown">Products<b class="caret"></b></a>
