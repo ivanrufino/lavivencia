@@ -12,6 +12,12 @@ and open the template in the editor.
         {js_list}
         <script>
             $(document).ready(function(){
+                  
+                $("li.view_up a,.subnivel").mouseover(function(){
+                    $(this ).parent('.view_up').delay('500').addClass('active')
+                }).mouseout(function(){
+                    $(this).parent().removeClass('active')
+                })
                 var localAtual = '.view_' +'<?= $this->router->fetch_class(); ?>';
                 $('li[class^=view_]').removeClass('active');
                 $(localAtual).addClass('active');

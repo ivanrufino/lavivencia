@@ -25,13 +25,15 @@ class Sistema_Model extends CI_Model {
             return FALSE;
         }
     }
-    public function getModuloMenu($perfil) {
+    public function getModuloMenu($perfil,$child=0) {
          $this->db->select();
         $this->db->from('v_moduloMenu v');
-        $this->db->where('v.ID_PERFIL',$perfil);
-        
+        if(is_null($perfil['GERAL'])){
+            $this->db->where('v.ID_PERFIL',$perfil['ID_PERFIL']);
+        }
+        $this->db->where('v.CHILD',$child);
         $sql=$this->db->get(); 
-       // echo $this->db->last_query();die();
+       
         if($sql->num_rows > 0){
             return $sql->result_array();
         }else{ 

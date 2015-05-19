@@ -11,11 +11,11 @@ class Funcionario extends CI_Controller {
  public $css=null;
     public $js=null;
     public $dadosUsuario;
-    private $idModulo = 1;
+    private $idModulo = 2;
     
     public function __construct() {
         parent::__construct();
-         $this->css=array('bootstrap','hover','menuHorizontal' );    
+         $this->css=array('bootstrap','hover','menuHorizontal','../font-awesome/css/font-awesome.min' );    
         $this->js = array('jquery-1.10.2', 'bootstrap','jquery.dataTables.min');
         $this->load->model('usuario_model', 'usuario');
         $this->load->model('funcionario_model', 'funcionario');
@@ -24,7 +24,7 @@ class Funcionario extends CI_Controller {
         if(!isset( $this->dadosUsuario['logado'])){
             redirect();
         }
-        $modulos =$this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo);       
+        $modulos =$this->sistema->permissao($this->dadosUsuario,$this->idModulo);       
                 
     }
     public function index() {
@@ -38,7 +38,7 @@ class Funcionario extends CI_Controller {
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
     public function novoFuncionario() {
-       $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,INCLUIR);
+       $this->sistema->permissao($this->dadosUsuario,$this->idModulo,INCLUIR);
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
        $data['naturalidades'] =  $data['municipios'];
@@ -101,7 +101,7 @@ class Funcionario extends CI_Controller {
         }
     }
     public function editar($id) {
-        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,ALTERAR);
+        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,ALTERAR);
        $data['funcionario'] = $this->utf8_converter($this->funcionario->getFuncionario($id));//die(var_dump($data));
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
@@ -118,14 +118,14 @@ class Funcionario extends CI_Controller {
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
     public function excluir($id) {
-        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,EXCLUIR);
+        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,EXCLUIR);
         if($this->funcionario->excluirFuncionario($id)){
            $this->session->set_flashdata('msg', 'Funcionário excluido com sucesso.');
         }
         redirect('funcionario');
     }
     public function gerarRelatorio($id, $tipo = 'doc') {
-        $this->sistema->permissao($this->dadosUsuario['ID_PERFIL'],$this->idModulo,RELATORIO);
+        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,RELATORIO);
         $this->load->helper('file');
         $this->load->helper('download');
         $funcionario = $this->funcionario->getFuncionario($id);
