@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 define('INCLUIR', '1');
-define('ALTERAR', '2');
+define('EDITAR', '2');
 define('EXCLUIR', '3');
 define('RELATORIO', '4');
 
@@ -11,7 +11,7 @@ class Funcionario extends CI_Controller {
  public $css=null;
     public $js=null;
     public $dadosUsuario;
-    private $idModulo = 2;
+    private $idModulo = 'funcionario';
     
     public function __construct() {
         parent::__construct();
@@ -25,9 +25,12 @@ class Funcionario extends CI_Controller {
             redirect();
         }
         $modulos =$this->sistema->permissao($this->dadosUsuario,$this->idModulo);       
-                
+        foreach ($modulos as $modulo) {
+            $this->funcoes[]=$modulo['ID_FUNCAO'];
+        }     
     }
     public function index() {
+        $data['funcoes']= $this->funcoes;
         $data['funcionarios'] = $this->funcionario->getFuncionario();
         $tela = array('menu' => 'telas/navigation.php',
             'index' => 'telas/funcionario.php',
@@ -37,7 +40,7 @@ class Funcionario extends CI_Controller {
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
-    public function novoFuncionario() {
+    public function incluir() {
        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,INCLUIR);
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
@@ -101,7 +104,7 @@ class Funcionario extends CI_Controller {
         }
     }
     public function editar($id) {
-        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,ALTERAR);
+        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,EDITAR);
        $data['funcionario'] = $this->utf8_converter($this->funcionario->getFuncionario($id));//die(var_dump($data));
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();

@@ -9,7 +9,7 @@ class Index extends CI_Controller {
     public $dadosUsuario;
     public function __construct() {
         parent::__construct();
-         $this->css=array('bootstrap','hover','menuHorizontal' );    
+         $this->css=array('bootstrap','hover','menuHorizontal','../font-awesome/css/font-awesome.min' );    
         $this->js = array('jquery-1.10.2', 'bootstrap','jquery.dataTables.min');
         $this->load->model('usuario_model', 'usuario');
         $this->load->model('funcionario_model', 'funcionario');

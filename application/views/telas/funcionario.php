@@ -57,9 +57,13 @@
     });
    
 </script>
-
+<?php $disabled['incluir']= in_array(1,$funcoes)? '':'disabled';
+       $disabled['editar']=in_array(2,$funcoes)? '':'disabled';
+       $disabled['excluir']=in_array(3,$funcoes)? '':'disabled';
+       $disabled['rel']=in_array(4,$funcoes)? '':'disabled';
+       ?>
 <div class="table-responsive col-sm-12 corpo">
-    <a href='novo_funcionario' class="btn btn-success" style="float:right">Novo Funcionário</a>
+    <a href='{base_url}funcionario/incluir' class="btn btn-success <?=$disabled['incluir']?>" style="float:right">Novo Funcionário</a>
     <table class="table table-bordered table-striped tables" id='table_funcionario'>
         <thead>
             <tr>
@@ -91,9 +95,9 @@
                     
                     <td><?= $funcionario['TURNO'] ?></td>
                     <td nowrap>
-                        <a href="editar_funcionario/<?= $funcionario['ID'] ?>" class='btn btn-info' >Editar</a>
-                        <a href="excluir_funcionario/<?= $funcionario['ID'] ?>" class='btn btn-danger excluir' >Excluir </a>
-                        <a href="funcionario/gerarRelatorio/<?= $funcionario['ID'] ?>" class='btn btn-default ' >Doc </a>
+                        <a href="{base_url}funcionario/editar/<?= $funcionario['ID'] ?>" class='btn btn-info btn-sm <?=$disabled['editar']?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
+                        <a href="{base_url}funcionario/excluir/<?= $funcionario['ID'] ?>" class='btn btn-danger btn-sm excluir <?=$disabled['excluir']?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
+                        <a href="{base_url}funcionario/gerarRelatorio/<?= $funcionario['ID'] ?>" class='btn btn-sm btn-default <?=$disabled['rel']?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
                     </td>
                 </tr>
             <?php }

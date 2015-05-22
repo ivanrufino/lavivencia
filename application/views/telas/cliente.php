@@ -5,14 +5,14 @@
         background-position: center right;
         cursor: pointer;
     }
-   table.dataTable thead .sorting_desc{ 
-       background-image: url("<?= base_url() ?>assets/imagens/sort_desc.png");
+    table.dataTable thead .sorting_desc{ 
+        background-image: url("<?= base_url() ?>assets/imagens/sort_desc.png");
         background-repeat: no-repeat;
         background-position: center right;
         cursor: pointer;}
     //.sorting_asc{color: red}
     table.dataTable thead  .sorting{
-         background-image: url("<?= base_url() ?>assets/imagens/sort_both.png");
+        background-image: url("<?= base_url() ?>assets/imagens/sort_both.png");
         background-repeat: no-repeat;
         background-position: center right;
         cursor: pointer;
@@ -48,18 +48,41 @@
 //    $('#table_funcionario').DataTable({
 //        "aaSorting": [[0, 'asc']]   
 //    });
-        $(".excluir").click(function(){
+        $(".excluir").click(function () {
             var respostaSim = confirm("Você confirma a exclusão deste funcionario.");
-            if(!respostaSim){
+            if (!respostaSim) {
                 return false;
             }
         })
     });
-   
-</script>
 
+</script>
+<?php
+    if(isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1'){
+        $disabled['incluir'] = '';
+        $disabled['editar'] = '';
+        $disabled['excluir'] = '';
+        $disabled['rel'] = '';
+        $disabled['visalizarPressao'] = '';
+        $disabled['marcarPressao'] ='';
+        $disabled['extra']='';
+    }else {    
+        $disabled['incluir'] = in_array(1, $funcoes)? '':'disabled';
+        $disabled['editar'] = in_array(2, $funcoes)? '':'disabled';
+        $disabled['excluir'] = in_array(3, $funcoes)? '':'disabled';
+        $disabled['rel'] = in_array(4, $funcoes)? '':'disabled';
+        $disabled['visalizarPressao'] = in_array(5, $funcoes)? '':'disabled';
+        $disabled['marcarPressao'] = in_array(6, $funcoes)? '':'disabled';
+        $disabled['extra'] = 'disabled';
+        if(in_array(5, $funcoes) || in_array(6, $funcoes)){
+            $disabled['extra'] = '';
+        }
+    }
+?>
 <div class="table-responsive col-sm-12 corpo">
-    <a href='novo_funcionario' class="btn btn-success" style="float:right">Novo Cliente</a>
+
+    <a href='{base_url}cliente/incluir' class="btn btn-success <?= $disabled['incluir'] ?>" style="float:right">Novo Cliente</a>
+
     <table class="table table-bordered table-striped tables" id='table_funcionario'>
         <thead>
             <tr>
@@ -71,11 +94,24 @@
             <?php foreach ($clientes as $cliente) { ?>
                 <tr>
                     <td nowrap><?= ($cliente['NOME']) ?></td>
-                  
+
+
                     <td nowrap>
-                        <a href="editar_funcionario/<?= $cliente['ID'] ?>" class='btn btn-info' >Editar</a>
-                        <a href="excluir_funcionario/<?= $cliente['ID'] ?>" class='btn btn-danger excluir' >Excluir </a>
-                        <a href="funcionario/gerarRelatorio/<?= $cliente['ID'] ?>" class='btn btn-default ' >Doc </a>
+                        <a href="{base_url}cliente/editar/<?= $cliente['ID'] ?>" class='btn btn-info btn-sm <?= $disabled['editar'] ?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
+                        <a href="{base_url}cliente/excluir/<?= $cliente['ID'] ?>" class='btn btn-danger btn-sm excluir <?= $disabled['excluir'] ?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
+                        <a href="{base_url}cliente/gerarRelatorio/<?= $cliente['ID'] ?>" class='btn btn-sm btn-default <?= $disabled['rel'] ?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle <?= $disabled['extra'] ?>" data-toggle="dropdown" aria-expanded="false">
+                                Extra <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Pressão Arterial</a></li>
+                                <li><a href="#">Medicamentos</a></li>
+                                <li><a href="#">Outra Opção</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Mais uma</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             <?php }

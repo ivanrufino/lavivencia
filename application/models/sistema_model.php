@@ -9,16 +9,17 @@ class Sistema_Model extends CI_Model {
        
         $this->db->select();
         $this->db->from('v_acesso v');
-        $this->db->where('v.ID_PERFIL',$perfil);
-        $this->db->where('v.ID_MODULO',$modulo);    
-        
-        
-        if(!is_null($funcao)){
-            $this->db->where('v.ID_FUNCAO',$funcao);
+        if ($perfil != 'geral') {
+            $this->db->where('v.ID_PERFIL', $perfil);
+            $this->db->where('v.MODULO_SLUG', $modulo);
+
+
+            if (!is_null($funcao)) {
+                $this->db->where('v.ID_FUNCAO', $funcao);
+            }
         }
-        
         $sql=$this->db->get(); 
-       // echo $this->db->last_query();die();
+      //  echo $this->db->last_query();die();
         if($sql->num_rows > 0){
             return $sql->result_array();
         }else{ 
@@ -32,8 +33,11 @@ class Sistema_Model extends CI_Model {
             $this->db->where('v.ID_PERFIL',$perfil['ID_PERFIL']);
         }
         $this->db->where('v.CHILD',$child);
+        if($child==0){
+            $this->db->or_where('v.MENU_PRINCIPAL','1');
+        }
         $sql=$this->db->get(); 
-       
+       //echo $this->db->last_query();die();
         if($sql->num_rows > 0){
             return $sql->result_array();
         }else{ 

@@ -10,7 +10,8 @@ class sistema {
     }
     public function permissao($perfil,$modulo,$funcao=null) {
         if(!is_null($perfil['GERAL']) && $perfil['GERAL']=='1'){
-            return TRUE;
+             $ret = $this->CI->Sistema_Model->getModulo('geral',null,null);
+            return $ret;
         }
         $ret = $this->CI->Sistema_Model->getModulo($perfil['ID_PERFIL'],$modulo,$funcao);
       //  print_r($ret);die();
@@ -18,7 +19,7 @@ class sistema {
         if(!$ret){
             redirect('index/nopermission');
         }
-      
+      return $ret;
     }
     
     

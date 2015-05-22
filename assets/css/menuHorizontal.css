@@ -9,12 +9,14 @@
     color: #fff !important;
     line-height: 28px;
     font-size: 14px;
-    border-right: 1px solid transparent; 
-    border-left: 1px solid transparent; 
-    background: #5F6F63
+    border-right: 1px solid #536157; 
+    //border-left: 1px solid #536157; 
+    background: #5F6F63;
+    padding-left: 19px;
+    padding-right: 19px;
 }
 ul.subnivel >li >a{
-    width: 100%;
+ 
     height: 100%;
     text-decoration: none;
     padding-left: 10px;
@@ -29,15 +31,16 @@ ul.subnivel >li >a{
     border-left-color: #fff;
     background: rgba(255, 255, 255, 0.21);
 }
-.menu_green .navbar-nav > li.active > a,.menu_green .navbar-nav > li.active > a:hover,.menu_green .navbar-nav > li > a:focus{
+.menu_green .navbar-nav > li.active > a,.menu_green .navbar-nav > li.active > a:hover,.menu_green .navbar-nav > li.hover > a,.menu_green .navbar-nav > li > a:focus{
     background: #fff !important;
     color: #48995C !important;
 }
-ul.subnivel >li {}
+
+
 .menu_green .navbar-nav > li > ul.subnivel  {
  //   display: none;
     border: 1px solid #536157;
-    width: 100%;
+   
     z-index: 10;
     position: absolute;
     list-style: none;
@@ -48,7 +51,7 @@ ul.subnivel >li {}
  //.menu_green .navbar-nav > li:hover > ul.subnivel,ul.subnivel:hover {display: block} 
  .corpo{
     
-    border: 1px solid #82DF87;
+    border: 1px solid #536157;
     min-height: calc(100vh - 200px);//100vh;
     padding: 10px 20px 50px;
 

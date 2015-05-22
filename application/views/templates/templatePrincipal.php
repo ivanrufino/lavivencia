@@ -14,14 +14,16 @@ and open the template in the editor.
             $(document).ready(function(){
                   
                 $("li.view_up a,.subnivel").mouseover(function(){
-                    $(this ).parent('.view_up').delay('500').addClass('active')
+                    $(this ).parent('.view_up').delay('500').addClass('hover')
                 }).mouseout(function(){
-                    $(this).parent().removeClass('active')
+                    $(this).parent('.view_up').removeClass('hover')
                 })
                 var localAtual = '.view_' +'<?= $this->router->fetch_class(); ?>';
+               
                 $('li[class^=view_]').removeClass('active');
-                $(localAtual).addClass('active');
-                console.log(localAtual)
+                $(localAtual).last().addClass('active')
+                .parents('.view_up').addClass('active');
+                
             })
         </script>
     </head>
