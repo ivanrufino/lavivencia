@@ -57,11 +57,20 @@
     });
    
 </script>
-<?php $disabled['incluir']= in_array(1,$funcoes)? '':'disabled';
-       $disabled['editar']=in_array(2,$funcoes)? '':'disabled';
-       $disabled['excluir']=in_array(3,$funcoes)? '':'disabled';
-       $disabled['rel']=in_array(4,$funcoes)? '':'disabled';
-       ?>
+<?php 
+if(isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1'){
+        $disabled['incluir'] = '';
+        $disabled['editar'] = '';
+        $disabled['excluir'] = '';
+        $disabled['rel'] = '';
+   
+    }else {    
+        $disabled['incluir'] = in_array(1, $funcoes)? '':'disabled';
+        $disabled['editar'] = in_array(2, $funcoes)? '':'disabled';
+        $disabled['excluir'] = in_array(3, $funcoes)? '':'disabled';
+        $disabled['rel'] = in_array(4, $funcoes)? '':'disabled';      
+    }
+?>
 <div class="table-responsive col-sm-12 corpo">
     <a href='{base_url}funcionario/incluir' class="btn btn-success <?=$disabled['incluir']?>" style="float:right">Novo Funcionário</a>
     <table class="table table-bordered table-striped tables" id='table_funcionario'>

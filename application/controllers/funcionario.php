@@ -127,71 +127,43 @@ class Funcionario extends CI_Controller {
         }
         redirect('funcionario');
     }
-    public function gerarRelatorio($id, $tipo = 'doc') {
+    public function gerarRelatorio($id, $tipo = 'pdf') {
         $this->sistema->permissao($this->dadosUsuario,$this->idModulo,RELATORIO);
-        $this->load->helper('file');
-        $this->load->helper('download');
-        $funcionario = $this->funcionario->getFuncionario($id);
-        $data='';
-        $nome=$funcionario['NOME'].".".$tipo;
-//        
-//        $data['escolaridades'] = $this->funcionario->getEscolaridades();
-//       $data['municipios'] = $this->funcionario->getMunicipios();
-//       $data['naturalidades'] =  $data['municipios'];
-//       $data['funcoes'] = $this->funcionario->getFuncoes();
-        
-        
-        $funcionario['MUNICIPIO']= $funcionario['FKMUNICIPIO']!=""? $this->funcionario->getMunicipios($funcionario['FKMUNICIPIO'])['NOME']:"";
-        $funcionario['NATURALIDADE']=$funcionario['FKNATURALIDADE']!=""? $this->funcionario->getMunicipios($funcionario['FKNATURALIDADE'])['NOME']:"";
-        $funcionario['ESCOLARIDADE']=$funcionario['FKESCOLARIDADE']!=""? $this->funcionario->getEscolaridades($funcionario['FKESCOLARIDADE'])['NOME']:"";
-        
-        unset($funcionario['FKMUNICIPIO']);
-        unset($funcionario['FKNATURALIDADE']);
-        unset($funcionario['FKPAIS']);
-        unset($funcionario['FKESCOLARIDADE']);
-        unset($funcionario['FKFUNCAO']);
-        
        
-        foreach ($funcionario as $key => $value) {  unset($funcionario['FKMUNICIPIO']);
-            switch ($key) {
-                case "FKMUNICIPIO":
-                    unset($funcionario['FKMUNICIPIO']);
-                    continue;
-                   
-                default:
-                    break;
-            }
-            $data.= str_pad("$key:", 20 , ".") ."$value \n ";
-        }
+        $data['funcionario'] = $this->funcionario->getRelFuncionario($id);
+        //load the view and saved it into $html variable
+        //$this->load->view('telas/relatorios/funcionario', $data);
+        $html=$this->load->view('telas/relatorios/funcionario', $data, true);
+       $nomeArquivo=$data['funcionario']['NOME'].".pdf";
+        //this the the PDF filename that user will get to download
+        $pdfFilePath =  "./assets/output_pdf_name.pdf";
+        //load mPDF library
+         $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+        //definindo senha
+        // $pdf->SetProtection(array(), 'me', '123456');
+        //generate the PDF from the given html
+        $pdf->WriteHTML($html);  
+        //download it.
+        $pdf->Output($nomeArquivo,'I');
+        
+        
+        //
+
+       
+//        foreach ($funcionario as $key => $value) {  
+//            $data.= str_pad("$key:", 20 , ".") ."$value \n ";
+//        }
 //        echo $data;
 //        die();
        // $data = utf8_encode($data);
         
-        force_download($nome, $data);
+ //       force_download($nome, $data);
 //        if (!write_file("./assets/relatorios/".$nome, $data,'r+')) {
 //            echo 'Unable to write the file';
 //        } else {
 //            echo 'File written!';
 //        }
-    }
-    public function utf8_converter($array) {
-        array_walk_recursive($array, function(&$item, $key) {
-            if (!mb_detect_encoding($item, 'utf-8', true)) {
-                $item = utf8_encode($item);
-            }
-        });
-
-        return $array;
-    }
-    public function utf8_decoder($array) {
-        return $array;
-        array_walk_recursive($array, function(&$item, $key) {
-            if (mb_detect_encoding($item, 'utf-8', true)) {
-                $item = html_entity_decode($item);
-            }
-        });
-
-        return $array;
     }
     
 

@@ -24,6 +24,16 @@ class Funcionario_Model extends CI_Model {
             return FALSE;
         }
     }
+    public function getRelFuncionario($codigo,$campos="*") {
+       $this->db->select($campos);
+       $this->db->from('v_relatorio_funcionario AS VRF');
+       $sql=$this->db->get(); 
+        if($sql->num_rows > 0){
+            return $sql->row_array();
+        }else{ 
+            return FALSE;
+        }
+    }
     public function getEscolaridades($codigo=NULL) {
         $ret='result_array';
         $this->db->select('*');
