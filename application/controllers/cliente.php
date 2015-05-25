@@ -2,7 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-/*funções padrões | outras funções podem ser cri*/
+/*funções padrões | outras funções podem ser criadas*/
 define('INCLUIR', '1');
 define('EDITAR', '2');
 define('EXCLUIR', '3');
@@ -62,6 +62,15 @@ class Cliente extends CI_Controller {
     public function gerarRelatorio($id, $tipo = 'pdf') {
         $this->sistema->permissao($this->dadosUsuario,$this->idModulo,RELATORIO);
          echo "relatorio";
+    }
+    public function pressaoArterial($id_cliente) {
+        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,VISUALIZAR_PA);
+        $data['medicoes'] = $this->cliente->getMedicao($id_cliente);
+        $data['datas']= $this->cliente->getDataMedicao($id_cliente);
+        asort($data['datas']);
+        
+        $tela=$this->load->view('telas/modal/medicaoPA', $data, true);
+        echo $tela;
     }
     public function consultarPressaoArterial($id_cliente,$mes = NULL) {
         $mes = is_null($mes)? date('m'):$mes;

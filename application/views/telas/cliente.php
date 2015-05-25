@@ -54,30 +54,49 @@
                 return false;
             }
         })
+        $('#div_medi , #div_pa').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var cliente = button.data('cliente') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+         //   modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body #id_cliente').val(cliente)
+        })
+        
+        $('#div_pa').on('shown.bs.modal', function (event) {
+            var modal = $(this)
+            var id= modal.find('.modal-body #id_cliente').val();
+            var caminho = "<?=  base_url('cliente/pressaoArterial')?>/"+id;
+            
+            modal.find('.modal-body .conteudoPA').load(caminho);
+           // $( "#result" ).load( "ajax/test.html" );
+            
+        })
     });
 
 </script>
 <?php
-    if(isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1'){
-        $disabled['incluir'] = '';
-        $disabled['editar'] = '';
-        $disabled['excluir'] = '';
-        $disabled['rel'] = '';
-        $disabled['visalizarPressao'] = '';
-        $disabled['marcarPressao'] ='';
-        $disabled['extra']='';
-    }else {    
-        $disabled['incluir'] = in_array(1, $funcoes)? '':'disabled';
-        $disabled['editar'] = in_array(2, $funcoes)? '':'disabled';
-        $disabled['excluir'] = in_array(3, $funcoes)? '':'disabled';
-        $disabled['rel'] = in_array(4, $funcoes)? '':'disabled';
-        $disabled['visalizarPressao'] = in_array(5, $funcoes)? '':'disabled';
-        $disabled['marcarPressao'] = in_array(6, $funcoes)? '':'disabled';
-        $disabled['extra'] = 'disabled';
-        if(in_array(5, $funcoes) || in_array(6, $funcoes)){
-            $disabled['extra'] = '';
-        }
+if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
+    $disabled['incluir'] = '';
+    $disabled['editar'] = '';
+    $disabled['excluir'] = '';
+    $disabled['rel'] = '';
+    $disabled['visalizarPressao'] = '';
+    $disabled['marcarPressao'] = '';
+    $disabled['extra'] = '';
+} else {
+    $disabled['incluir'] = in_array(1, $funcoes) ? '' : 'disabled';
+    $disabled['editar'] = in_array(2, $funcoes) ? '' : 'disabled';
+    $disabled['excluir'] = in_array(3, $funcoes) ? '' : 'disabled';
+    $disabled['rel'] = in_array(4, $funcoes) ? '' : 'disabled';
+    $disabled['visalizarPressao'] = in_array(5, $funcoes) ? '' : 'disabled';
+    $disabled['marcarPressao'] = in_array(6, $funcoes) ? '' : 'disabled';
+    $disabled['extra'] = 'disabled';
+    if (in_array(5, $funcoes) || in_array(6, $funcoes)) {
+        $disabled['extra'] = '';
     }
+}
 ?>
 <div class="table-responsive col-sm-12 corpo">
 
@@ -101,12 +120,12 @@
                         <a href="{base_url}cliente/excluir/<?= $cliente['ID'] ?>" class='btn btn-danger btn-sm excluir <?= $disabled['excluir'] ?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
                         <a href="{base_url}cliente/gerarRelatorio/<?= $cliente['ID'] ?>" class='btn btn-sm btn-default <?= $disabled['rel'] ?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle <?= $disabled['extra'] ?>" data-toggle="dropdown" aria-expanded="false">
-                                Extra <span class="caret"></span>
+                            <button type="button" class="btn btn-default btn-smdropdown-toggle <?= $disabled['extra'] ?>" data-toggle="dropdown" aria-expanded="false">
+                                Outras opções <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Pressão Arterial</a></li>
-                                <li><a href="#">Medicamentos</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#div_pa" data-cliente="<?= $cliente['ID'] ?>" >Pressão Arterial</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#div_medi" data-cliente="<?= $cliente['ID'] ?>" >Medicamentos</a></li>
                                 <li><a href="#">Outra Opção</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Mais uma</a></li>
@@ -119,4 +138,41 @@
         </tbody>
     </table>
 </div>
-
+<!--pressão arterial-->
+<div class="modal fade" id="div_pa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Marcação de Pressão Arterial</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="ID" id="id_cliente" readonly="">
+                <div class="conteudoPA">Carregando... </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--medicamentos do cliente-->
+<div class="modal fade" id="div_medi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Medicamentos Receitados</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="ID" id="id_cliente" readonly="">
+                <div class="conteudoMed">Carregando... </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,37 @@ class Cliente_Model extends CI_Model {
             return FALSE;
         }
     }
+    public function getMedicao($codigo, $mes =NULL) {
+       $this->db->select('*');
+       $this->db->from('v_pressao_cliente VPC');
+       $this->db->where('VPC.ID_CLIENTE', $codigo );
+       if(!is_null($mes)){
+            $this->db->where('VPC.MES', $mes );  
+       }
+       
+        $sql=$this->db->get(); 
+     
+        if($sql->num_rows > 0){
+            return $sql->result_array();
+        }else{ 
+            return FALSE;
+        }
+    }
+    public function getDataMedicao($codigo) {
+       $this->db->select('MES,ANO');
+       $this->db->distinct();
+       $this->db->from('v_pressao_cliente VPC');
+       $this->db->where('VPC.ID_CLIENTE', $codigo );
+       
+       $sql=$this->db->get(); 
+     
+        if($sql->num_rows > 0){
+            return $sql->result_array();
+        }else{ 
+            return FALSE;
+        }
+    }
+    /*daqui para baixo verificar o que pode ser aproveitado*/
     public function getEscolaridades($codigo=NULL) {
         $ret='result_array';
         $this->db->select('*');

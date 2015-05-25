@@ -106,7 +106,7 @@ if(isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1'){
                     <td nowrap>
                         <a href="{base_url}funcionario/editar/<?= $funcionario['ID'] ?>" class='btn btn-info btn-sm <?=$disabled['editar']?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
                         <a href="{base_url}funcionario/excluir/<?= $funcionario['ID'] ?>" class='btn btn-danger btn-sm excluir <?=$disabled['excluir']?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
-                        <a href="{base_url}funcionario/gerarRelatorio/<?= $funcionario['ID'] ?>" class='btn btn-sm btn-default <?=$disabled['rel']?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
+                        <a href="{base_url}funcionario/gerarRelatorio/<?= $funcionario['ID'] ?>" target="_blank" class='btn btn-sm btn-default <?=$disabled['rel']?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
                     </td>
                 </tr>
             <?php }
