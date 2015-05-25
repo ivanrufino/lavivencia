@@ -29,18 +29,28 @@
 </script>
 <label for="observacao">Observação</label>
 <textarea class="form-control" id="observacao" name="OBSERVACAO" placeholder="Observação"><?= isset($medicoes[0]['OBSERVACAO'])? $medicoes[0]['OBSERVACAO']:"" ?></textarea>
-<table class="tableMarcacao">
+<div class="col-sm-12 table-responsive">
+    <a href='{base_url}funcionario/incluir' class="btn btn-success " style="float:right">Nova Marcação</a>
+<table class="tableMarcacao table-bordered table-condensed table-hover table-striped col-xs-12">
     <thead>
-        <tr><th></th></tr>
+        <tr>
+            <th>Data</th>
+            <th>PS</th>
+            <th>PD</th>
+            
+        </tr>
     </thead>
     <tbody>
         <?php foreach ($medicoes as $medicao) {?>
         <tr>
-            <td></td>
+            <td><?= $medicao['data']?></td>
+            <td><?= $medicao['PS']?></td>
+            <td><?= $medicao['PD']?></td>
         </tr>
         <?php } ?>
     </tbody>
 </table>
+    </div>
 <?php $meses_extenso = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
 ?>
 
