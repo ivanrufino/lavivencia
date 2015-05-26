@@ -6703,8 +6703,9 @@ td.visible-xs {
   td.visible-xs.visible-md {
     display: table-cell !important;
   }
+  .modal-lg{width:900px}
 }
-
+.modal-lg{width:900px}
 @media (min-width: 1200px) {
   .visible-xs.visible-lg {
     display: block !important;

@@ -31,7 +31,7 @@ class Cliente_Model extends CI_Model {
        if(!is_null($mes)){
             $this->db->where('VPC.MES', $mes );  
        }
-       
+       $this->db->order_by("MES DESC, ANO DESC,DIA ASC");
         $sql=$this->db->get(); 
      
         if($sql->num_rows > 0){
@@ -45,7 +45,8 @@ class Cliente_Model extends CI_Model {
        $this->db->distinct();
        $this->db->from('v_pressao_cliente VPC');
        $this->db->where('VPC.ID_CLIENTE', $codigo );
-       
+       $this->db->order_by("MES DESC, ANO DESC");
+      // $this->db->limit('1');
        $sql=$this->db->get(); 
      
         if($sql->num_rows > 0){

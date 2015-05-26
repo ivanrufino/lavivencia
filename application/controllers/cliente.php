@@ -65,9 +65,9 @@ class Cliente extends CI_Controller {
     }
     public function pressaoArterial($id_cliente) {
         $this->sistema->permissao($this->dadosUsuario,$this->idModulo,VISUALIZAR_PA);
-        $data['medicoes'] = $this->cliente->getMedicao($id_cliente);
+        $data['medicoes'] = $this->cliente->getMedicao($id_cliente,date('n'));
         $data['datas']= $this->cliente->getDataMedicao($id_cliente);
-        asort($data['datas']);
+//        asort($data['datas']);
         
         $tela=$this->load->view('telas/modal/medicaoPA', $data, true);
         echo $tela;

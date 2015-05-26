@@ -140,7 +140,7 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
 </div>
 <!--pressão arterial-->
 <div class="modal fade" id="div_pa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -151,15 +151,17 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
                 <div class="conteudoPA">Carregando... </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                
                 <button type="button" class="btn btn-primary">Atualizar</button>
+                <button type="button" class="btn btn-info btn_medicoes">Medições</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
 </div>
 <!--medicamentos do cliente-->
 <div class="modal fade" id="div_medi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -170,8 +172,9 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
                 <div class="conteudoMed">Carregando... </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 <button type="button" class="btn btn-primary">Atualizar</button>
+                <!--<button type="button" class="btn btn-info">Relatório</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
