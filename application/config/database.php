@@ -49,7 +49,8 @@
 $active_record = TRUE;
 
 switch ($_SERVER['SERVER_NAME']) {
-    case 'vazio':
+    case 'lavivencia.hol.es':
+         $active_group = 'online';
         break;
   
     default:
@@ -106,6 +107,22 @@ $db['office']['dbcollat'] = 'NONE';
 $db['office']['swap_pre'] = '';
 $db['office']['autoinit'] = TRUE;
 $db['office']['stricton'] = FALSE;
+
+$db['online']['hostname'] = 'localhost';
+$db['online']['username'] = 'u514233581_laviv';
+$db['online']['password'] = 'akuma2010';
+$db['online']['database'] = 'u514233581_laviv';
+$db['online']['dbdriver'] = 'mysql';
+$db['online']['dbprefix'] = '';
+$db['online']['pconnect'] = FALSE;
+$db['online']['db_debug'] = TRUE;
+$db['online']['cache_on'] = FALSE;
+$db['online']['cachedir'] = '';
+$db['online']['char_set'] = 'utf8';
+$db['online']['dbcollat'] = 'utf8_general_ci';
+$db['online']['swap_pre'] = '';
+$db['online']['autoinit'] = TRUE;
+$db['online']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

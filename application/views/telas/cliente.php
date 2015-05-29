@@ -26,7 +26,7 @@
             "bDeferRender": true,
             "bPaginate": true,
             "bFilter": true,
-            "aaSorting": [[0, "asc"]],
+            "aaSorting": [[4, "asc"],[0, "asc"]],
             "oLanguage": {
                 "sLengthMenu": 'Mostrar <select>' +
                         '<option value="10">10</option>' +
@@ -106,6 +106,10 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
         <thead>
             <tr>
                 <th >NOME</th>
+                <th >DATA NASCIMENTO</th>
+                <th >QUARTO</th>
+                <th >CAMA</th>
+                <th >STATUS</th>
                 <th>AÇÃO</th>
             </tr>
         </thead>
@@ -113,8 +117,10 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
             <?php foreach ($clientes as $cliente) { ?>
                 <tr>
                     <td nowrap><?= ($cliente['NOME']) ?></td>
-
-
+                    <td><?= ($cliente['DT_NASCIMENTO']) ?></td>
+                    <td><?= ($cliente['QUARTO']) ?></td>
+                    <td><?= ($cliente['CAMA']) ?></td>
+                    <td><?= ($cliente['STATUS_LABEL']) ?></td>
                     <td nowrap>
                         <a href="{base_url}cliente/editar/<?= $cliente['ID'] ?>" class='btn btn-info btn-sm <?= $disabled['editar'] ?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
                         <a href="{base_url}cliente/excluir/<?= $cliente['ID'] ?>" class='btn btn-danger btn-sm excluir <?= $disabled['excluir'] ?>' ><i class="fa fa-trash-o"> </i> Excluir </a>

@@ -48,7 +48,7 @@ class Funcionario extends CI_Controller {
        $data['funcoes'] = $this->funcionario->getFuncoes();
        
         $tela = array('menu' => 'telas/navigation.php',
-            'index' => 'telas/cadastrofuncionario.php',
+            'index' => 'telas/cadastro/funcionario.php',
             );
         $this->css[]='form_funcionario';
         $this->js[]='form_funcionario';
@@ -58,8 +58,7 @@ class Funcionario extends CI_Controller {
         
     }
     public function inserirFuncionario() {
-       // $this->form_validation->set_message('is_unique', 'O campo ID não pode ser duplicado na base.');
-        $this->form_validation->set_rules('ID', 'ID', 'required|integer');
+       // $this->form_validation->set_rules('ID', 'ID', 'required|integer');
         $this->form_validation->set_rules('NOME', 'NOME', 'required');
         $this->form_validation->set_rules('INSCRICAO', 'INSCRICAO', 'required');
         //$this->form_validation->set_rules('senha', 'Senha', 'required');

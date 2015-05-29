@@ -23,6 +23,7 @@ class Cliente extends CI_Controller {
         $this->js = array('jquery-1.10.2', 'bootstrap', 'jquery.dataTables.min');
         $this->load->model('usuario_model', 'usuario');
         $this->load->model('cliente_model', 'cliente');
+        $this->load->model('plano_saude_model', 'plano');
         //$this->load->model('Sistema_Model', 'sistema');
         $this->dadosUsuario = $this->session->userdata('dadosUsuario');
         if (!isset($this->dadosUsuario['logado'])) {
@@ -48,8 +49,84 @@ class Cliente extends CI_Controller {
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
     public function incluir() {
-        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,INCLUIR);
-        echo "incluir";
+       $this->sistema->permissao($this->dadosUsuario,$this->idModulo,INCLUIR);
+       $data['planos'] = $this->plano->getPlano();
+       $data['dietas'] = $this->cliente->getDieta();
+//       $data['municipios'] = $this->funcionario->getMunicipios();
+//       $data['naturalidades'] =  $data['municipios'];
+//       $data['funcoes'] = $this->funcionario->getFuncoes();
+       
+        $tela = array('menu' => 'telas/navigation.php',
+            'index' => 'telas/cadastro/cliente.php',
+            );
+        $this->css[]='form_funcionario';
+        $this->js[]='form_funcionario';
+        $this->parser->adc_css($this->css);
+        $this->parser->adc_js($this->js);
+        $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
+    }
+    public function inserirCliente() {
+        $this->form_validation->set_rules('NOME', 'NOME', 'required');
+        $this->form_validation->set_rules('INSCRICAO', 'INSCRICAO', 'required');
+        $this->form_validation->set_rules('nome_contato', 'Nome contato', 'required');
+        //$this->form_validation->set_rules('FK_DIETA', 'Dieta', 'required');
+        //$this->form_validation->set_rules('senha', 'Senha', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->incluir();
+        } else {
+            $dadosContato = array(
+                'NOME'          =>  $this->input->post('nome_contato'),
+                'PARENTESCO'    =>  $this->input->post('PARENTESCO'),
+                'ENDERECO'      =>  $this->input->post('ENDERECO'),
+                'SUBBAIRRO'     =>  $this->input->post('SUBBAIRRO'),
+                'BAIRRO'        =>  $this->input->post('BAIRRO'),
+                'FK_MUNICIPIO'   =>  1,//$this->input->post('FKMUNICIPIO'),
+                'CEP'           =>  $this->input->post('CEP'),
+                'UF'            =>  $this->input->post('UF'),
+                'REFERENCIAS'   =>  $this->input->post('REFERENCIAS'),
+                'IDENTIDADE'    =>  $this->input->post('identidade_contato'),
+                'ORGAO'         =>  $this->input->post('orgao_contato'),
+                'TELEFONES'     =>  $this->input->post('TELEFONES'),
+                'EMAIL'         =>  $this->input->post('EMAIL'),
+                'DT_NASCIMENTO' =>  $this->input->post('dt_nascimento_contato'),
+            );
+            
+            $dadosCliente = array(
+                'NOME'          => $this->input->post('NOME'),
+                'INSCRICAO'     => $this->input->post('INSCRICAO'),
+                'DT_NASCIMENTO'  => $this->input->post('DTNASCIMENTO'),
+                'EST_CIVIL'   => $this->input->post('ESTADOCIVIL'),
+                'CPF'           => $this->input->post('CPF'),
+                'IDENTIDADE'    => $this->input->post('IDENTIDADE'),
+                'ORGAO'         => $this->input->post('ORGAO'),
+                'COBRE_INTERNACAO'=> $this->input->post('COBRE_INTERNACAO'),
+                'COBRE_REMOCAO' => $this->input->post('COBRE_REMOCAO'),
+                'TEMPORARIO'    => $this->input->post('TEMPORARIO'),
+                'FK_PLANO_SAUDE'=> $this->input->post('FK_PLANO_SAUDE'),
+                'QUARTO'        => $this->input->post('QUARTO'),
+                'CAMA'          => $this->input->post('CAMA'),
+                'FK_DIETA'      => $this->input->post('FK_DIETA'),
+                'ORIGEM'        => $this->input->post('ORIGEM'),
+                'DIAGNOSTICO'   => $this->input->post('DIAGNOSTICO'),
+                'OBSERVACAO'    => $this->input->post('OBSERVACAO'),
+                'DT_SAIDA'      => $this->input->post('DT_SAIDA')==""? NULL:$this->input->post('DT_SAIDA'),
+                'MOTIVO_SAIDA'  => $this->input->post('MOTIVO_SAIDA'),
+                
+            );
+            $dadosCliente['FK_CONTATO'] = $this->cliente->novoContato($dadosContato);
+            if ($dadosCliente['FK_CONTATO']) {
+                if($this->cliente->novoCliente($dadosCliente)){
+                    $this->session->set_flashdata('msg', 'Cliente salvo com sucesso.');
+                    redirect('cliente');
+                }else{
+                    $this->session->set_flashdata('msg', 'Houve uma falha na gravação do Cliente.');
+                    $this->incluir();
+                }
+            }else{
+               $this->session->set_flashdata('msg', 'Houve uma falha na gravação do Contato.');
+               $this->incluir(); 
+            }
+        }
     }
     public function editar($id) {
         $this->sistema->permissao($this->dadosUsuario,$this->idModulo,EDITAR);

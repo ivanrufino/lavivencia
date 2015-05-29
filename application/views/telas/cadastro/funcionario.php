@@ -26,12 +26,12 @@
                 <div class="col-md-12">
                     <h3> Dados Pessoais</h3>
 
-                    <div class='col-md-2'>
+<!--                    <div class='col-md-2'>
                         <div class="form-group">
                             <label class="control-label">ID</label>
                             <input  maxlength="100" type="text" name='ID' id='ID' required="required" class="form-control" placeholder="Digite o ID" value="<?php echo set_value('ID'); ?>" />
                         </div>
-                    </div>
+                    </div>-->
                     <div class='col-md-6'>
                         <div class="form-group">
                             <label class="control-label">NOME</label>
