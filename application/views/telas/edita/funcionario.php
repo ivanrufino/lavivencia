@@ -53,17 +53,9 @@
                     </div>
                     <div class='col-md-4'>
                         <div class="form-group">
-                              <?php 
-                                if ($funcionario['TELEFONES'] != "") {
-                                    $binfo = ibase_blob_info($funcionario['TELEFONES']);
-                                    $bopen = ibase_blob_open($funcionario['TELEFONES']);
-                                    $tel = ibase_blob_get($bopen, $binfo[0]);
-                                } else {
-                                    $tel = "";
-                                  }
-                            ?> 
+                             
                             <label class="control-label">TELEFONE</label>
-                            <input  type="text"  name='TELEFONES' id='TELEFONES' class="form-control" placeholder="Digite o TELEFONE" value="<?php echo $tel; ?>"/>
+                            <input  type="text"  name='TELEFONES' id='TELEFONES' class="form-control" placeholder="Digite o TELEFONE" value="<?php echo $funcionario['TELEFONES']; ?>"/>
                         </div>
                     </div>
                     <div class='col-md-4'>
@@ -281,15 +273,7 @@
                         <div class="form-group">
                             <label class="control-label">OBSERVACAO</label>
                             <textarea class='form-control' name='OBSERVACAO' id='OBSERVACAO' placeholder="Digite a OBSERVACAO">
-                                <?php 
-                                if ($funcionario['OBSERVACAO'] != "") {
-                                    $binfo = ibase_blob_info($funcionario['OBSERVACAO']);
-                                    $bopen = ibase_blob_open($funcionario['OBSERVACAO']);
-                                    $obs = utf8_encode(ibase_blob_get($bopen, $binfo[0]));
-                                } else {
-                                    $obs = "";
-                                  }
-                            echo trim($obs); ?> 
+                                <?php $funcionario['OBSERVACAO'] ?>
                             </textarea>
                         </div>
                     </div>

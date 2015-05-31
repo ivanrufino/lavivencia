@@ -103,6 +103,31 @@ class Cliente_Model extends CI_Model {
         }
         return FALSE;
     }
+    
+     public function excluirCliente($id) {
+        if ($this->db->delete('CLIENTE', array('ID' => $id))) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    public function alteraContato($dados, $id) {
+
+        $this->db->where('ID', $id);
+        if ($this->db->update('CONTATO', $dados)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    public function alterarCliente($dados, $id) {
+
+        $this->db->where('ID', $id);
+        if ($this->db->update('CLIENTE', $dados)) {
+            
+            return TRUE;
+        }
+        return FALSE;
+    }
     /* daqui para baixo verificar o que pode ser aproveitado */
 
     public function getEscolaridades($codigo = NULL) {
@@ -179,12 +204,6 @@ class Cliente_Model extends CI_Model {
         return FALSE;
     }
 
-    public function excluirFuncionario($id) {
-        if ($this->db->delete('FUNCIONARIO', array('ID' => $id))) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
+   
 
 }

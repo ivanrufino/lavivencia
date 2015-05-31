@@ -10,7 +10,7 @@ define('RELATORIO', '4');
 define('VISUALIZAR_PA', '5');
 define('MARCAR_PA', '6');
 
-class Cliente extends CI_Controller {
+class Usuario extends CI_Controller {
 
     public $css = null;
     public $js = null;
@@ -24,7 +24,6 @@ class Cliente extends CI_Controller {
         $this->js = array('jquery-1.10.2', 'bootstrap', 'jquery.dataTables.min', 'jquery.form.min');
         $this->load->model('usuario_model', 'usuario');
         $this->load->model('cliente_model', 'cliente');
-        $this->load->model('plano_saude_model', 'plano');
         $this->load->model('funcionario_model', 'funcionario');
         //$this->load->model('Sistema_Model', 'sistema');
         $this->dadosUsuario = $this->session->userdata('dadosUsuario');
@@ -39,13 +38,14 @@ class Cliente extends CI_Controller {
     }
 
     public function index() {
-        $data['funcoes'] = $this->funcoes;
-        $data['clientes'] = $this->cliente->getCliente();
+        $data['funcoes']= $this->funcoes;
+        $data['usuarios'] = $this->usuario->getUsuario();
+     
         $tela = array('menu' => 'telas/navigation.php',
-            'index' => 'telas/cliente.php',
-        );
-
-        $this->parser->adc_css($this->css);
+            'index' => 'telas/usuario.php',
+            );
+        
+      $this->parser->adc_css($this->css);
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }

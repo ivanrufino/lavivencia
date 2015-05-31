@@ -49,19 +49,19 @@
 //        "aaSorting": [[0, 'asc']]   
 //    });
         $(".excluir").click(function () {
-            var respostaSim = confirm("Você confirma a exclusão deste funcionario.");
+            var respostaSim = confirm("Você confirma a exclusão deste usuário.");
             if (!respostaSim) {
                 return false;
             }
         })
         $('#div_medi , #div_pa').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var cliente = button.data('cliente') // Extract info from data-* attributes
+            var usuario = button.data('usuario') // Extract info from data-* attributes
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
          //   modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body #id_cliente').val(cliente)
+            modal.find('.modal-body #id_usuario').val(usuario)
         })
         $("#div_medi,#div_pa").on('hidden.bs.modal',function(event){
             $(".btn_medicoes, .salvarMarcacao").hide()   
@@ -69,8 +69,8 @@
         
         $('#div_pa').on('shown.bs.modal', function (event) {
             var modal = $(this)
-            var id= modal.find('.modal-body #id_cliente').val();
-            var caminho = "<?=  base_url('cliente/pressaoArterial')?>/"+id;
+            var id= modal.find('.modal-body #id_usuario').val();
+            var caminho = "<?=  base_url('usuario/pressaoArterial')?>/"+id;
             
             modal.find('.modal-body .conteudoPA').load(caminho);
            // $( "#result" ).load( "ajax/test.html" );
@@ -103,43 +103,43 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
 ?>
 <div class="table-responsive col-sm-12 corpo">
 
-    <a href='{base_url}cliente/incluir' class="btn btn-success <?= $disabled['incluir'] ?>" style="float:right">Novo Cliente</a>
+    <!--<a href='{base_url}usuario/incluir' class="btn btn-success <?= $disabled['incluir'] ?>" style="float:right">Novo Cliente</a>-->
 
     <table class="table table-bordered table-striped tables" id='table_funcionario'>
         <thead>
             <tr>
-                <th >NOME</th>
-                <th >DATA NASCIMENTO</th>
-                <th >QUARTO</th>
-                <th >CAMA</th>
-                <th >STATUS</th>
+                <th >Nome</th>
+                <th >Login</th>
+                <th >Email</th>
+                <th >Perfil</th>
+                
                 <th>AÇÃO</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($clientes as $cliente) { ?>
+            <?php foreach ($usuarios as $usuario) { ?>
                 <tr>
-                    <td nowrap><?= ($cliente['NOME']) ?></td>
-                    <td><?= ($cliente['DT_NASCIMENTO']) ?></td>
-                    <td><?= ($cliente['QUARTO']) ?></td>
-                    <td><?= ($cliente['CAMA']) ?></td>
-                    <td><?= ($cliente['STATUS_LABEL']) ?></td>
+                    <td nowrap><?= ($usuario['NOME']) ?></td>
+                    <td><?= ($usuario['LOGIN']) ?></td>
+                    <td><?= ($usuario['EMAIL']) ?></td>
+                    <td><?= ($usuario['PERFIL']) ?></td>
+                    
                     <td nowrap>
-                        <a href="{base_url}cliente/editar/<?= $cliente['ID'] ?>" class='btn btn-info btn-sm <?= $disabled['editar'] ?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
-                        <a href="{base_url}cliente/excluir/<?= $cliente['ID'] ?>" class='btn btn-danger btn-sm excluir <?= $disabled['excluir'] ?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
-                        <a href="{base_url}cliente/gerarRelatorio/<?= $cliente['ID'] ?>" class='btn btn-sm btn-default <?= $disabled['rel'] ?>' ><i class="fa fa-file-text-o"> </i> Rel </a>
-                        <div class="btn-group">
+                        <a href="{base_url}usuario/editar/<?= $usuario['ID'] ?>" class='btn btn-info btn-sm <?= $disabled['editar'] ?>' ><i class="fa fa-pencil-square-o"> </i> Editar</a>
+                        <a href="{base_url}usuario/excluir/<?= $usuario['ID'] ?>" class='btn btn-danger btn-sm excluir <?= $disabled['excluir'] ?>' ><i class="fa fa-trash-o"> </i> Excluir </a>
+                        <!--<a href="{base_url}usuario/gerarRelatorio/<?= $usuario['ID'] ?>" class='btn btn-sm btn-default <?= $disabled['rel'] ?>' ><i class="fa fa-file-text-o"> </i> Rel </a>-->
+                     <!--s   <div class="btn-group">
                             <button type="button" class="btn btn-default btn-smdropdown-toggle <?= $disabled['extra'] ?>" data-toggle="dropdown" aria-expanded="false">
                                 Outras opções <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-toggle="modal" data-target="#div_pa" data-cliente="<?= $cliente['ID'] ?>" >Pressão Arterial</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#div_medi" data-cliente="<?= $cliente['ID'] ?>" >Medicamentos</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#div_contato" data-cliente="<?= $cliente['ID'] ?>" >Contato</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#div_pa" data-usuario="<?= $usuario['ID'] ?>" >Pressão Arterial</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#div_medi" data-usuario="<?= $usuario['ID'] ?>" >Medicamentos</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#div_contato" data-usuario="<?= $usuario['ID'] ?>" >Contato</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Mais uma</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
             <?php }
@@ -157,7 +157,7 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
             </div>
             <div class="modal-body">
                 
-                <input type="hidden" name="ID" id="id_cliente" readonly="">
+                <input type="hidden" name="ID" id="id_usuario" readonly="">
                 <div class="conteudoPA">Carregando... </div>
                 
             </div>
@@ -170,7 +170,7 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
         </div>
     </div>
 </div>
-<!--medicamentos do cliente-->
+<!--medicamentos do usuario-->
 <div class="modal fade" id="div_medi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -180,7 +180,7 @@ if (isset($this->dadosUsuario['GERAL']) && $this->dadosUsuarioGERAL = '1') {
             </div>
             <div class="modal-body">
                 
-                <input type="hidden" name="ID" id="id_cliente" readonly="">
+                <input type="hidden" name="ID" id="id_usuario" readonly="">
                 <div class="conteudoMed">Carregando... </div>
                 
             </div>

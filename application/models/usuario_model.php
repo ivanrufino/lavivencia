@@ -20,13 +20,17 @@ class Usuario_Model extends CI_Model {
         }
         
     }
-    public function getUsuario($codigo) {
-        $this->db->where('CODIGO', $codigo );  
+    public function getUsuario($codigo = NULL) {
+        $ret='result_array';
+        if(!is_null($codigo)){
+            $this->db->where('CODIGO', $codigo );  
+            $ret='row_array';
+        }
         $sql=$this->db->get('v_usuario'); 
         
         
         if($sql->num_rows > 0){
-            return $sql->row_array();
+            return $sql->$ret();
         }else{ 
             return FALSE;
         }

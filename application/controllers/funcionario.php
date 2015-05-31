@@ -40,6 +40,7 @@ class Funcionario extends CI_Controller {
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/templatePrincipal.php', $tela, $data);
     }
+    
     public function incluir() {
        $this->sistema->permissao($this->dadosUsuario,$this->idModulo,INCLUIR);
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
@@ -80,11 +81,9 @@ class Funcionario extends CI_Controller {
         }
     }
     public function alterar_funcionario($id) {
-        //$this->form_validation->set_rules('ID', 'ID', 'required|integer'); 
-        $this->form_validation->set_rules('NOME', 'NOME', 'required');
-       // $this->form_validation->set_rules('INSCRICAO', 'INSCRICAO', 'required');
-        //$this->form_validation->set_rules('senha', 'Senha', 'required');
-        if ($this->form_validation->run() == FALSE) {
+      
+      $this->form_validation->set_rules('NOME', 'NOME', 'required');
+      if ($this->form_validation->run() == FALSE) {
             $this->editar($id);
         } else {
             $dados = $this->input->post();
@@ -104,14 +103,14 @@ class Funcionario extends CI_Controller {
     }
     public function editar($id) {
         $this->sistema->permissao($this->dadosUsuario,$this->idModulo,EDITAR);
-       $data['funcionario'] = $this->utf8_converter($this->funcionario->getFuncionario($id));//die(var_dump($data));
+       $data['funcionario'] = $this->funcionario->getFuncionario($id);//die(var_dump($data));
        $data['escolaridades'] = $this->funcionario->getEscolaridades();
        $data['municipios'] = $this->funcionario->getMunicipios();
        $data['naturalidades'] =  $data['municipios'];
        $data['funcoes'] = $this->funcionario->getFuncoes();
        
         $tela = array('menu' => 'telas/navigation.php',
-            'index' => 'telas/alterafuncionario.php',
+            'index' => 'telas/edita/funcionario.php',
             );
         $this->css[]='form_funcionario';
         $this->js[]='form_funcionario';

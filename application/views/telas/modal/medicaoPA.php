@@ -28,8 +28,14 @@
         $(".novaMarcacao").click(function () {
             $(".dadostabela").slideUp('slow')
             $(".dadosInclusao").slideDown('slow')
-            $(".btn_medicoes").show()   
+            $(".btn_medicoes, .salvarMarcacao").show()   
             return false;
+        })
+        $(".salvarMarcacao").click(function(){
+             var options = {
+            target: '.retorno', // target element(s) to be updated with server response 
+        };
+        $('.marcacao').ajaxSubmit(options);
         })
     });
 </script>
@@ -45,9 +51,9 @@
         <table class="tableMarcacao table-bordered table-condensed table-hover table-striped col-xs-12">
             <thead>
                 <tr>
-                    <th>-</th>
-                    <th>Data</th>
-                    <th>-</th>
+                    <th style="width:60px">Dia</th>
+                    <th style="width:100px">Mês</th>
+                    <th style="width:80px">Ano</th>
                     <th>PS</th>
                     <th>PD</th>
 
@@ -70,8 +76,8 @@
 
 
     <div class="col-xs-12  dadosInclusao">
-<form class="form-horizontal">
-    
+        <form class="form-horizontal marcacao" method="POST" action="<?=  base_url()?>cliente/marcarPressaoArterial">
+            <input type='hidden' name='ID' value="<?=$ID?>">
          <div class="form-group col-sm-4">
         <label for="resp_tec" >Resp. Técnico</label>
         <input type="text" name="responsavel_tecnico" id="resp_tec" class="form-control" value="<?= isset($medicoes[0]['RESPONSAVEL_TECNICO']) ? $medicoes[0]['RESPONSAVEL_TECNICO'] : "" ?>">
@@ -124,20 +130,20 @@
 
         <div class="form-group col-xs-6">
             <label  for="PS">PS</label>            
-            <input type="number" id="PS" name="PS" class="form-control" min="0">            
+            <input type="text" id="PS" name="PS" class="form-control" min="0">            
         </div>
         <div class="form-group col-xs-6">
             <label  for="PD">PD</label>            
-            <input type="number" id="PD" name="PS" class="form-control" min="0">            
+            <input type="text" id="PD" name="PD" class="form-control" min="0">            
         </div>
 
         <div class="clearfix"></div>
 
-        <div class="col-xs-12"></div>
+        <div class="col-xs-12 retorno"></div>
 
-    </div>
+    
 </form>
-
+</div>
 <?php 
 function somar_data($data, $dias, $meses, $ano){
   $data = explode("/", $data);
