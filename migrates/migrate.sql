@@ -21,3 +21,13 @@ SELECT U.ID, U.LOGIN, F.NOME, F.EMAIL, S.NOME AS PERFIL
 FROM  `SYSUSUARIO` U
 JOIN FUNCIONARIO F ON F.ID = U.`ID_FUNCIONARIO` 
 JOIN SYSPERFIL S ON S.ID = U.FK_SYSPERFIL
+
+-- novo
+INSERT INTO `SYSMODULO` (`ID`, `NOME`, `SLUG`, `CHILD`, `MENU_PRINCIPAL`, `OUTROS`) VALUES
+(1, 'Configuração Geral', 'up', 0, 0, 0),
+(2, 'Funcionário', 'funcionario', 1, 1, 0),
+(3, 'Medicamento', 'medicamento', 1, 0, 0),
+(4, 'Cliente', 'cliente', 1, 0, 0),
+(7, 'Sistema', 'sistema', 1, 0, 0),
+(8, 'Usuário', 'usuario', 7, 0, 0),
+(9, 'Perfil', 'perfil', 7, 0, 0);
